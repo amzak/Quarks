@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Codestellation.Common.Extentions;
+﻿using Codestellation.Common.Extentions;
 using NUnit.Framework;
 
 namespace Codestellation.Common.Tests.Extentions
