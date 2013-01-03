@@ -41,6 +41,7 @@
     <Compile Include="Timing\IClock.cs" />
     <Compile Include="Timing\RealClock.cs" />
     <Compile Include="Timing\TestClock.cs" />
+    <Compile Include="Timing\TimeUtil.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

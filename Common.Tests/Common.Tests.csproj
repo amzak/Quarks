@@ -43,6 +43,7 @@
     <Compile Include="Extentions\EnumerableExtTests.cs" />
     <Compile Include="Extentions\StringExtTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Timing\TimeUtilTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
