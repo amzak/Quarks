@@ -7,7 +7,7 @@ namespace Codestellation.Common.Tests.Timing
     [TestFixture]
     public class TimeUtilTests
     {
-        [TestCase(156)]
+        [Test]
         public void Should_truncate_millisecodes()
         {
             var original = new DateTimeOffset(2012, 12, 2, 23, 56, 44, 156, TimeSpan.FromHours(5));
