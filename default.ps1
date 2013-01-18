@@ -1,21 +1,26 @@
 ﻿Properties {
     $basedir = Get-Location
     $outputdir = Join-Path $basedir 'Build'
+	$nugetdir = Join-Path $basedir 'Nuget'
     $quotedoutputdir = '"' + $outputdir + '"'
-    $framework = 4.0
-    $v4_net_version = (ls "$env:windir\Microsoft.NET\Framework\v$framework*").Name
+    $frameworks = '4.0', '4.5'
     $msbuildpath = "$env:windir\Microsoft.NET\Framework\$v4_net_version\MsBuild.exe"
 }
 
 include .\utils.ps1
 
-Task Default -depends Test
+Task Default -depends PrepareNupack
 
 Task Clean {
     if(Test-Path $outputdir)
     {
         Remove-Item -Path $outputdir -Recurse -Force
     }
+	
+	if(Test-Path $nugetdir)
+	{
+		Remove-Item -Path $nugetdir -Recurse -Force
+	}
 }
 
 Task SetVersion {
@@ -29,13 +34,11 @@ Task Build -depends Clean, SetVersion {
     {
         $solution = Get-Item -Path .\ -Include *.sln
     }
-    Write-Warning $quotedoutputdir
+    
     Exec { 
-       & $msbuildpath $solution "/p:OutDir=$quotedoutputdir\"
+		msbuild $solution /p:OutDir=$quotedoutputdir\ /verbosity:minimal 		
     }
 }
-
-
 
 Task Test -depends Build {
     
@@ -51,5 +54,21 @@ Task Test -depends Build {
            & $nunit $linearAsms /domain:single
         }
     }
-    
+}
+
+Task PrepareNupack -depends Test {
+	
+	$projects = @(Get-ChildItem -Include *.csproj -Exclude *.Tests.csproj -Recurse)
+	foreach($project in $projects)
+	{
+		foreach($framework in $frameworks)
+		{
+			$projectname = $project.Name.Replace(".csproj", [System.String]::Empty)
+			$dir = "$nugetdir\$projectname\lib\net$framework" + '\'
+			$config = "Release"
+			Exec {
+				msbuild $project.FullName /p:OutDir=$dir;Configuration=$config;TargetFrameworkVersion=V$framework;CustomAfterMicrosoftCommonTargets=$basedir\SkipCopyLocal.targets /verbosity:minimal
+			}
+		}
+	}
 }
