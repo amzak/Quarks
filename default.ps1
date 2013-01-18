@@ -7,9 +7,24 @@
     $msbuildpath = "$env:windir\Microsoft.NET\Framework\$v4_net_version\MsBuild.exe"
 }
 
+include .\utils.ps1
+
 Task Default -depends Test
 
-Task Build -depends Clean {
+Task Clean {
+    if(Test-Path $outputdir)
+    {
+        Remove-Item -Path $outputdir -Recurse -Force
+    }
+}
+
+Task SetVersion {
+	$version = Get-Version
+	$SolutionVersion = Generate-Assembly-Info $version["version"] $version["commit"] $version["dirty"]
+	$SolutionVersion > SolutionVersion.cs 
+}
+
+Task Build -depends Clean, SetVersion {
     if(!$solution)
     {
         $solution = Get-Item -Path .\ -Include *.sln
@@ -20,12 +35,7 @@ Task Build -depends Clean {
     }
 }
 
-Task Clean {
-    if(Test-Path $outputdir)
-    {
-        Remove-Item -Path $outputdir -Recurse -Force
-    }
-}
+
 
 Task Test -depends Build {
     
