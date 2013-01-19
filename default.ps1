@@ -3,7 +3,8 @@
     $outputdir = Join-Path $basedir 'Build'
 	$nugetdir = Join-Path $basedir 'Nuget'
     $quotedoutputdir = '"' + $outputdir + '"'
-    $frameworks = '4.0', '4.5'
+    $frameworks = '4.0','4.5'
+
     $msbuildpath = "$env:windir\Microsoft.NET\Framework\$v4_net_version\MsBuild.exe"
 }
 
@@ -57,18 +58,26 @@ Task Test -depends Build {
 }
 
 Task PrepareNupack -depends Test {
-	
-	$projects = @(Get-ChildItem -Include *.csproj -Exclude *.Tests.csproj -Recurse)
+
+    $v4_net_version = (ls "$env:windir\Microsoft.NET\Framework64\v$framework*").Name	
+    $msbuild = "$env:windir\Microsoft.NET\Framework\$v4_net_version\MsBuild.exe"
+    
+    $projects = @(Get-ChildItem -Include *.csproj -Exclude *.Tests.csproj -Recurse)
 	foreach($project in $projects)
 	{
 		foreach($framework in $frameworks)
 		{
-			$projectname = $project.Name.Replace(".csproj", [System.String]::Empty)
-			$dir = "$nugetdir\$projectname\lib\net$framework" + '\'
+            $projectname = $project.Name.Replace(".csproj", [System.String]::Empty)
+            $projectfile = $project.FullName
+            $dotlessFramework = $framework.Replace('.','')
+			$dir = "$nugetdir\$projectname\lib\net$dotlessFramework" + '\'
 			$config = "Release"
-			Exec {
-				msbuild $project.FullName /p:OutDir=$dir;Configuration=$config;TargetFrameworkVersion=V$framework;CustomAfterMicrosoftCommonTargets=$basedir\SkipCopyLocal.targets /verbosity:minimal
-			}
+			
+            $props = "/p:TargetFrameworkVersion=$framework;Configuration=$config;OutDir=$dir;CustomAfterMicrosoftCommonTargets=$basedir\SkipCopyLocal.targets"
+            
+            Exec {
+                msbuild $projectfile  /t:Rebuild $props /verbosity:minimal /nologo
+            }
 		}
 	}
 }
