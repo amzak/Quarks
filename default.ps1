@@ -4,13 +4,13 @@
 	$nugetdir = Join-Path $basedir 'Nuget'
     $quotedoutputdir = '"' + $outputdir + '"'
     $frameworks = '4.0','4.5'
-
-    $msbuildpath = "$env:windir\Microsoft.NET\Framework\$v4_net_version\MsBuild.exe"
+    $version = Get-Version
+    $nuget = (Get-ChildItem -Path $basedir -Include nuget.exe -Recurse).FullName
 }
 
 include .\utils.ps1
 
-Task Default -depends PrepareNupack
+Task Default -depends Pack
 
 Task Clean {
     if(Test-Path $outputdir)
@@ -25,7 +25,7 @@ Task Clean {
 }
 
 Task SetVersion {
-	$version = Get-Version
+	
 	$SolutionVersion = Generate-Assembly-Info $version["version"] $version["commit"] $version["dirty"]
 	$SolutionVersion > SolutionVersion.cs 
 }
@@ -57,12 +57,10 @@ Task Test -depends Build {
     }
 }
 
-Task PrepareNupack -depends Test {
-
-    $v4_net_version = (ls "$env:windir\Microsoft.NET\Framework64\v$framework*").Name	
-    $msbuild = "$env:windir\Microsoft.NET\Framework\$v4_net_version\MsBuild.exe"
+Task Pack -depends Test {
     
-    $projects = @(Get-ChildItem -Include *.csproj -Exclude *.Tests.csproj -Recurse)
+    [System.IO.FileInfo[]]$projects = @(Get-ChildItem -Include *.csproj -Exclude *.Tests.csproj -Recurse)
+
 	foreach($project in $projects)
 	{
 		foreach($framework in $frameworks)
@@ -70,14 +68,31 @@ Task PrepareNupack -depends Test {
             $projectname = $project.Name.Replace(".csproj", [System.String]::Empty)
             $projectfile = $project.FullName
             $dotlessFramework = $framework.Replace('.','')
-			$dir = "$nugetdir\$projectname\lib\net$dotlessFramework" + '\'
+            $packagedir = "$nugetdir\$projectname"
+			$libdir = "$packagedir\lib\net$dotlessFramework" + '\'
 			$config = "Release"
-			
-            $props = "/p:TargetFrameworkVersion=$framework;Configuration=$config;OutDir=$dir;CustomAfterMicrosoftCommonTargets=$basedir\SkipCopyLocal.targets"
+			#TODO Move this to utils for the sake of incapsulation ugly string concats.
+            $props = "/p:TargetFrameworkVersion=$framework;Configuration=$config;OutDir=$libdir;CustomAfterMicrosoftCommonTargets=$basedir\SkipCopyLocal.targets"
             
             Exec {
                 msbuild $projectfile  /t:Rebuild $props /verbosity:minimal /nologo
             }
 		}
+        $projectdir = $project.Directory.FullName;
+        
+        $nuspec = (Get-ChildItem -Path $projectdir -Include *.nuspec -Recurse).FullName
+        
+        $nugetVersion = $version['version']
+        if($version['dirty'])
+        {
+            $nugetVersion += '-dirty'
+            Write-Warning "Working directory is dirty. Package will be marked as dirty - $nugetVersion"
+        }
+        write 'Building nuget package '
+        Exec {
+           & $nuget pack $nuspec -BasePath $packagedir -Version $nugetVersion -Symbols -ExcludeEmptyDirectories
+        }
+         
+
 	}
 }
