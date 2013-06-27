@@ -41,6 +41,7 @@
     <Compile Include="Extentions\EnumerableExt.cs" />
     <Compile Include="Extentions\StringExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringUtils\TemplateExpander.cs" />
     <Compile Include="Timing\IClock.cs" />
     <Compile Include="Timing\RealClock.cs" />
     <Compile Include="Timing\TestClock.cs" />
