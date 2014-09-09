@@ -43,7 +43,6 @@
     <Compile Include="Extentions\EnumerableExtTests.cs" />
     <Compile Include="Extentions\StringExtTests.cs" />
     <Compile Include="StringUtils\TemplateExpanderTests.cs" />
-    <Compile Include="Timing\TimeUtilTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -58,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="Timing\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

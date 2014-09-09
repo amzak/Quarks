@@ -38,13 +38,10 @@
     <Compile Include="Extentions\EnumerableExt.cs" />
     <Compile Include="Extentions\StringExt.cs" />
     <Compile Include="StringUtils\TemplateExpander.cs" />
-    <Compile Include="Timing\IClock.cs" />
-    <Compile Include="Timing\RealClock.cs" />
-    <Compile Include="Timing\TestClock.cs" />
-    <Compile Include="Timing\TimeUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="Timing\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
