@@ -45,6 +45,7 @@
     <Compile Include="Enumerations\EnumUtil.cs" />
     <Compile Include="Extentions\EnumerableExtTests.cs" />
     <Compile Include="Extentions\StringExtTests.cs" />
+    <Compile Include="Resources\EmbeddedResourceTests.cs" />
     <Compile Include="StringUtils\TemplateExpanderTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\EmbeddedSample.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
