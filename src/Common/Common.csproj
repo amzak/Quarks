@@ -45,6 +45,7 @@
     <Compile Include="Streams\UnsafeStringStream.cs" />
     <Compile Include="StringUtils\TemplateExpander.cs" />
     <Compile Include="DateAndTime\Clock.cs" />
+    <Compile Include="Threading\PreciseTimer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
