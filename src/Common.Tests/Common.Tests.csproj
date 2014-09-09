@@ -46,6 +46,7 @@
     <Compile Include="Extentions\EnumerableExtTests.cs" />
     <Compile Include="Extentions\StringExtTests.cs" />
     <Compile Include="Resources\EmbeddedResourceTests.cs" />
+    <Compile Include="Streams\StreamExtensionsTests.cs" />
     <Compile Include="StringUtils\TemplateExpanderTests.cs" />
   </ItemGroup>
   <ItemGroup>

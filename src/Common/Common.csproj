@@ -48,6 +48,7 @@
     <Compile Include="Resources\EmbeddedResource.cs" />
     <Compile Include="Streams\PooledMemoryStream.cs" />
     <Compile Include="Streams\PoolSizeSettings.cs" />
+    <Compile Include="Streams\StreamExtensions.cs" />
     <Compile Include="Streams\StreamPool.cs" />
     <Compile Include="Streams\UnsafeStringStream.cs" />
     <Compile Include="StringUtils\TemplateExpander.cs" />
