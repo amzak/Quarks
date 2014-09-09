@@ -37,6 +37,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerations\EnumIndexer.cs" />
+    <Compile Include="Enumerations\EnumUtil.cs" />
     <Compile Include="Extentions\EnumerableExt.cs" />
     <Compile Include="Extentions\StringExt.cs" />
     <Compile Include="Streams\PooledMemoryStream.cs" />
