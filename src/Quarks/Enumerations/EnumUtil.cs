@@ -13,7 +13,7 @@ namespace Codestellation.Quarks.Enumerations
 
     internal static class EnumUtil<TEnum> where TEnum : struct
     {
-        public static EnumIndexer<TEnum, string> ToStringCache;
+        public static readonly EnumIndexer<TEnum, string> ToStringCache;
 
         static EnumUtil()
         {

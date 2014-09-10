@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using Codestellation.Quarks.Extentions;
+using Codestellation.Quarks.Collections;
 using NUnit.Framework;
 
-namespace Codestellation.Quarks.Tests.Extentions
+namespace Codestellation.Quarks.Tests.Extensions
 {
     [TestFixture]
-    public class EnumerableExtTests
+    public class EnumerableExtensionsTests
     {
         [Test]
         public void Should_return_empty_if_original_is_null()

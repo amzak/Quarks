@@ -43,8 +43,8 @@
     <Compile Include="DateAndTime\ClockTests.cs" />
     <Compile Include="Enumerations\EnumIndexerTests.cs" />
     <Compile Include="Enumerations\EnumUtil.cs" />
-    <Compile Include="Extensions\EnumerableExtTests.cs" />
-    <Compile Include="Extensions\StringExtTests.cs" />
+    <Compile Include="Extensions\EnumerableExtensionsTests.cs" />
+    <Compile Include="StringUtils\StringExtensionsTests.cs" />
     <Compile Include="Resources\EmbeddedResourceTests.cs" />
     <Compile Include="Streams\StreamExtensionsTests.cs" />
     <Compile Include="StringUtils\TemplateExpanderTests.cs" />

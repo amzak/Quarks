@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Codestellation.Quarks.Extentions
+namespace Codestellation.Quarks.Collections
 {
-    internal static class EnumerableExt
+    internal static class EnumerableExtensions
     {
         public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> self)
         {

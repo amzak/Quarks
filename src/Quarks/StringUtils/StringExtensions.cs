@@ -1,4 +1,4 @@
-﻿namespace Codestellation.Quarks.Extentions
+﻿namespace Codestellation.Quarks.StringUtils
 {
     internal static class StringExtensions
     {

@@ -1,10 +1,10 @@
-﻿using Codestellation.Quarks.Extentions;
+﻿using Codestellation.Quarks.StringUtils;
 using NUnit.Framework;
 
-namespace Codestellation.Quarks.Tests.Extentions
+namespace Codestellation.Quarks.Tests.StringUtils
 {
     [TestFixture]
-    public class StringExtTests
+    public class StringExtensionsTests
     {
         [Test]
         public void Should_format_string_with()

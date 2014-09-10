@@ -40,7 +40,7 @@
     <Compile Include="Properties\AssebmlyInfo.cs" />
     <Compile Include="Enumerations\EnumIndexer.cs" />
     <Compile Include="Enumerations\EnumUtil.cs" />
-    <Compile Include="Extensions\EnumerableExt.cs" />
+    <Compile Include="Collections\EnumerableExtensions.cs" />
     <Compile Include="StringUtils\StringExtensions.cs" />
     <Compile Include="Native\LibraryHandle.cs" />
     <Compile Include="Native\MethodHandle.cs" />
