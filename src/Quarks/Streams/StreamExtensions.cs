@@ -2,7 +2,7 @@
 
 namespace Codestellation.Quarks.Streams
 {
-    public static class StreamExtensions
+    internal static class StreamExtensions
     {
         public static void ExportTo(this Stream self, string fileName, bool overwrite = false)
         {

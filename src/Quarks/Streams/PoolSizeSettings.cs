@@ -3,7 +3,7 @@
     /// <summary>
     /// Contains settings for thread-pool
     /// </summary>
-    public struct PoolSizeSettings
+    internal struct PoolSizeSettings
     {
         /// <summary>
         /// Settings used by default

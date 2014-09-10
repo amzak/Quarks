@@ -6,7 +6,7 @@ namespace Codestellation.Quarks.Streams
     /// <summary>
     /// Contains additional functionality to make it possible to use in pool
     /// </summary>
-    public class PooledMemoryStream : MemoryStream
+    internal class PooledMemoryStream : MemoryStream
     {
         private const int Busy = 1;
         private const int Free = 0;

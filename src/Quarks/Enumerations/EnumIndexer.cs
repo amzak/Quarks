@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Codestellation.Quarks.Enumerations
 {
-    public class EnumIndexer<TEnum, TValue>
+    internal class EnumIndexer<TEnum, TValue>
     {
         private static readonly int _arraySize;
         private static readonly Func<TEnum, int> ConvertToInt;

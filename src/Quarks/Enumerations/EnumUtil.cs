@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Codestellation.Quarks.Enumerations
 {
-    public static class EnumUtil
+    internal static class EnumUtil
     {
         public static string AsString<TEnum>(this TEnum value) where TEnum : struct
         {
@@ -11,7 +11,7 @@ namespace Codestellation.Quarks.Enumerations
         }
     }
 
-    public static class EnumUtil<TEnum> where TEnum : struct
+    internal static class EnumUtil<TEnum> where TEnum : struct
     {
         public static EnumIndexer<TEnum, string> ToStringCache;
 

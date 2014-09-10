@@ -37,6 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\AssebmlyInfo.cs" />
     <Compile Include="Enumerations\EnumIndexer.cs" />
     <Compile Include="Enumerations\EnumUtil.cs" />
     <Compile Include="Extentions\EnumerableExt.cs" />
@@ -55,9 +56,7 @@
     <Compile Include="DateAndTime\Clock.cs" />
     <Compile Include="Threading\PreciseTimer.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

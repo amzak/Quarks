@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Codestellation.Quarks.Resources
 {
-    public static class EmbeddedResource
+    internal static class EmbeddedResource
     {
         public static Stream EndsWith(string name, StringComparison comparison = StringComparison.InvariantCultureIgnoreCase)
         {

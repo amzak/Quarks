@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Codestellation.Quarks.Extentions
 {
-    public static class EnumerableExt
+    internal static class EnumerableExt
     {
         public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> self)
         {

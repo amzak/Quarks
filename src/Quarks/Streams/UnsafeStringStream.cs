@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Codestellation.Quarks.Streams
 {
-    public sealed unsafe class UnsafeStringStream : Stream
+    internal sealed unsafe class UnsafeStringStream : Stream
     {
         private readonly byte* _origin;
         private byte* _current;

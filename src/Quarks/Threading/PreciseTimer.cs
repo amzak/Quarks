@@ -4,7 +4,7 @@ using Codestellation.Quarks.DateAndTime;
 
 namespace Codestellation.Quarks.Threading
 {
-    public class PreciseTimer : IDisposable
+    internal class PreciseTimer : IDisposable
     {
         private static readonly TimeSpan MaxTime = TimeSpan.FromMinutes(1);
 
