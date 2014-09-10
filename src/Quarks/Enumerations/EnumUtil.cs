@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Codestellation.Common.Enumerations
+namespace Codestellation.Quarks.Enumerations
 {
     public static class EnumUtil
     {

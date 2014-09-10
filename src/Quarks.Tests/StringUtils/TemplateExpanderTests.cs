@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using Codestellation.Common.StringUtils;
+using Codestellation.Quarks.StringUtils;
 using NUnit.Framework;
 
-namespace Codestellation.Common.Tests.StringUtils
+namespace Codestellation.Quarks.Tests.StringUtils
 {
     [TestFixture]
     public class TemplateExpanderTests

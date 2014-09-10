@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32.SafeHandles;
 
-namespace Codestellation.Common.Native
+namespace Codestellation.Quarks.Native
 {
     internal class MethodHandle : SafeHandleZeroOrMinusOneIsInvalid
     {

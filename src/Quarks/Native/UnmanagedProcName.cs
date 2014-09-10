@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Codestellation.Common.Native
+namespace Codestellation.Quarks.Native
 {
     [AttributeUsage(AttributeTargets.Delegate, AllowMultiple = false, Inherited = false)]
     internal class UnmanagedProcedureAttribute : Attribute

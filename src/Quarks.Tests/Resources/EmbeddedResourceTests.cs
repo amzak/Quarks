@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
-using Codestellation.Common.Resources;
+using Codestellation.Quarks.Resources;
 using NUnit.Framework;
 
-namespace Codestellation.Common.Tests.Resources
+namespace Codestellation.Quarks.Tests.Resources
 {
     [TestFixture]
     public class EmbeddedResourceTests

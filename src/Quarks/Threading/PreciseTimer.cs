@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
-using Codestellation.Common.DateAndTime;
+using Codestellation.Quarks.DateAndTime;
 
-namespace Codestellation.Common.Threading
+namespace Codestellation.Quarks.Threading
 {
     public class PreciseTimer : IDisposable
     {

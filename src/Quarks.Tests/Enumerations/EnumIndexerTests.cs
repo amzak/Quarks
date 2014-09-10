@@ -1,8 +1,8 @@
 ﻿using System;
-using Codestellation.Common.Enumerations;
+using Codestellation.Quarks.Enumerations;
 using NUnit.Framework;
 
-namespace Codestellation.Common.Tests.Enumerations
+namespace Codestellation.Quarks.Tests.Enumerations
 {
     [TestFixture]
     public class EnumIndexerTests

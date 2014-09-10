@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Codestellation.Common.Extentions;
+using Codestellation.Quarks.Extentions;
 using NUnit.Framework;
 
-namespace Codestellation.Common.Tests.Extentions
+namespace Codestellation.Quarks.Tests.Extentions
 {
     [TestFixture]
     public class EnumerableExtTests

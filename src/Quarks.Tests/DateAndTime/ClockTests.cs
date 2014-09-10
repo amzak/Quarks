@@ -1,8 +1,8 @@
 ﻿using System;
-using Codestellation.Common.DateAndTime;
+using Codestellation.Quarks.DateAndTime;
 using NUnit.Framework;
 
-namespace Codestellation.Common.Tests.DateAndTime
+namespace Codestellation.Quarks.Tests.DateAndTime
 {
     [TestFixture]
     public class ClockTests

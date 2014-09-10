@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Codestellation.Common.Streams
+namespace Codestellation.Quarks.Streams
 {
     public sealed unsafe class UnsafeStringStream : Stream
     {

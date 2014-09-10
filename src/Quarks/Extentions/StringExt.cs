@@ -1,4 +1,4 @@
-﻿namespace Codestellation.Common.Extentions
+﻿namespace Codestellation.Quarks.Extentions
 {
     public static class StringExt
     {

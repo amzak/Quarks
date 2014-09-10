@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Codestellation.Common.Extentions
+namespace Codestellation.Quarks.Extentions
 {
     public static class EnumerableExt
     {

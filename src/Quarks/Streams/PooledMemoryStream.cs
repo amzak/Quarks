@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading;
 
-namespace Codestellation.Common.Streams
+namespace Codestellation.Quarks.Streams
 {
     /// <summary>
     /// Contains additional functionality to make it possible to use in pool

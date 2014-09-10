@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace Codestellation.Common.Native
+namespace Codestellation.Quarks.Native
 {
     internal static class Platform
     {

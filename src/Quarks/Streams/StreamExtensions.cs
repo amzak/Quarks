@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Codestellation.Common.Streams
+namespace Codestellation.Quarks.Streams
 {
     public static class StreamExtensions
     {

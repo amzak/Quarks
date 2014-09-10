@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace Codestellation.Common.Resources
+namespace Codestellation.Quarks.Resources
 {
     public static class EmbeddedResource
     {

@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 
-namespace Codestellation.Common.StringUtils
+namespace Codestellation.Quarks.StringUtils
 {
     public class TemplateExpander
     {

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Codestellation.Common.Enumerations
+namespace Codestellation.Quarks.Enumerations
 {
     public class EnumIndexer<TEnum, TValue>
     {
