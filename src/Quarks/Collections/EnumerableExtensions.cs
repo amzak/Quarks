@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace Codestellation.Quarks.Collections
 {
     internal static class EnumerableExtensions
     {
+        private static class ArrayOf<T>
+        {
+             public static readonly T[] Empty = new T[0];
+        }
+        
         public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> self)
         {
-            return self ?? Enumerable.Empty<T>();
+            return self ?? ArrayOf<T>.Empty;
         }
     }
 }
