@@ -40,6 +40,7 @@
     <Compile Include="Collections\CollectionExtensions.cs" />
     <Compile Include="Collections\DictionaryExtensions.cs" />
     <Compile Include="Collections\HashSetExtensions.cs" />
+    <Compile Include="Exceptions\ExceptionExtensions.cs" />
     <Compile Include="Properties\AssebmlyInfo.cs" />
     <Compile Include="Enumerations\EnumIndexer.cs" />
     <Compile Include="Enumerations\EnumUtil.cs" />
