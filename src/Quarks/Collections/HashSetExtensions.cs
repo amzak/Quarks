@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Codestellation.Quarks.Collections
 {
-    public static class HashSetExtensions
+    internal static class HashSetExtensions
     {
         public static bool ThreadSafeAdd<TItem>(ref HashSet<TItem> set, TItem item)
         {

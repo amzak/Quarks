@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Codestellation.Quarks.Collections
 {
-    public static class CollectionExtensions
+    internal static class CollectionExtensions
     {
         public static TOutput[] ConvertToArray<TInput, TOutput>(this TInput[] self, Func<TInput, TOutput> converter)
         {

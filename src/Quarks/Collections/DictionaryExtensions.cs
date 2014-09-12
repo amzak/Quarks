@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Codestellation.Quarks.Collections
 {
-    public static class DictionaryExtensions
+    internal static class DictionaryExtensions
     {
         public static bool ThreadSafeAdd<TKey, TValue>(ref Dictionary<TKey, TValue> dictionary, TKey key, TValue value)
         {

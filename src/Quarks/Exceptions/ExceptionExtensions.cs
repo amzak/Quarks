@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Codestellation.Quarks.Exceptions
 {
-    public static class ExceptionExtensions
+    internal static class ExceptionExtensions
     {
         private static readonly Action<Exception> PreserveStackTrace;
 
