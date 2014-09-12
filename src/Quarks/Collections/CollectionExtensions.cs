@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Codestellation.Quarks.Collections
 {
@@ -10,30 +12,27 @@ namespace Codestellation.Quarks.Collections
 
         internal static class ArrayOf<T>
         {
-            public static readonly T[] Empty = new T[0];
+            public static readonly T[] EmptyArray = new T[0];
         }
         
         public static TOutput[] ConvertToArray<TInput, TOutput>(this TInput[] self, Func<TInput, TOutput> converter)
         {
-            var result = new TOutput[self.Length];
-
-            for (int index = 0; index < self.Length; index++)
-            {
-                result[index] = converter(self[index]);
-            }
-
-            return result;
+            return ConvertToArray(self, converter, self.Length);
         }
 
         public static TOutput[] ConvertToArray<TInput, TOutput>(this ICollection<TInput> self, Func<TInput, TOutput> converter)
         {
-            var result = new TOutput[self.Count];
+            return ConvertToArray(self, converter, self.Count);
+        }
+
+        private static TOutput[] ConvertToArray<TInput, TOutput>(IEnumerable<TInput> self, Func<TInput, TOutput> converter, int arraySize)
+        {
+            var result = new TOutput[arraySize];
 
             int index = 0;
             foreach (var input in self)
             {
-                result[index] = converter(input);
-                index++;
+                result[index++] = converter(input);
             }
 
             return result;
@@ -73,7 +72,7 @@ namespace Codestellation.Quarks.Collections
 
         public static T[] EmptyIfNull<T>(this T[] self)
         {
-            return self ?? ArrayOf<T>.Empty;
+            return self ?? ArrayOf<T>.EmptyArray;
         }
 
         public static TItem ArrayFirst<TItem>(this TItem[] self)
@@ -203,6 +202,7 @@ namespace Codestellation.Quarks.Collections
             }
             return result;
         }
+
         public static TInput[] SortAscending<TInput, TProperty>(this TInput[] input, Expression<Func<TInput, TProperty>> property)
         {
             var comparisons = GetOrCreateComparison(property);
