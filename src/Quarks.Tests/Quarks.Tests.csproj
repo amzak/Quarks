@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllInternalsTests.cs" />
+    <Compile Include="Collections\CollectionExtensionsTests.cs" />
     <Compile Include="DateAndTime\ClockTests.cs" />
     <Compile Include="Enumerations\EnumIndexerTests.cs" />
     <Compile Include="Enumerations\EnumUtil.cs" />

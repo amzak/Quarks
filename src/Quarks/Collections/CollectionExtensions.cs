@@ -6,6 +6,8 @@ namespace Codestellation.Quarks.Collections
 {
     internal static class CollectionExtensions
     {
+        private static readonly ConcurrentDictionary<Expression, Tuple<Delegate, Delegate>> ComparisonCache = new ConcurrentDictionary<Expression, Tuple<Delegate, Delegate>>();
+
         internal static class ArrayOf<T>
         {
             public static readonly T[] Empty = new T[0];
@@ -200,6 +202,40 @@ namespace Codestellation.Quarks.Collections
                 result[count++] = item3;
             }
             return result;
+        }
+        public static TInput[] SortAscending<TInput, TProperty>(this TInput[] input, Expression<Func<TInput, TProperty>> property)
+        {
+            var comparisons = GetOrCreateComparison(property);
+            var ascending = comparisons.Item1;
+            Array.Sort(input, (Comparison<TInput>)ascending);
+            return input;
+        }
+
+        public static TInput[] SortDescending<TInput, TProperty>(this TInput[] input, Expression<Func<TInput, TProperty>> property)
+        {
+            var comparisons = GetOrCreateComparison(property);
+            var descending = comparisons.Item2;
+            Array.Sort(input, (Comparison<TInput>)descending);
+            return input;
+        }
+
+        private static Tuple<Delegate, Delegate> GetOrCreateComparison<TInput, TProperty>(Expression<Func<TInput, TProperty>> property)
+        {
+            Tuple<Delegate, Delegate> result;
+            if (!ComparisonCache.TryGetValue(property, out result))
+            {
+                result = BuildComparison(property);
+                ComparisonCache[property] = result;
+            }
+            return result;
+        }
+
+        private static Tuple<Delegate,Delegate> BuildComparison<TInput, TProperty>(Expression<Func<TInput, TProperty>> property)
+        {
+            var getter = property.Compile();
+            Comparison<TInput> ascending = (x, y) => Comparer<TProperty>.Default.Compare(getter(x), getter(y));
+            Comparison<TInput> descending = (x, y) => Comparer<TProperty>.Default.Compare(getter(y), getter(x));
+            return new Tuple<Delegate, Delegate>(ascending,descending);
         }
     }
 }
