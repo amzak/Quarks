@@ -1,17 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Codestellation.Quarks.Collections
 {
     internal static class EnumerableExtensions
     {
-        private static class ArrayOf<T>
-        {
-             public static readonly T[] Empty = new T[0];
-        }
-        
         public static IEnumerable<T> EmptyIfNull<T>(this IEnumerable<T> self)
         {
-            return self ?? ArrayOf<T>.Empty;
+            return self ?? CollectionExtensions.ArrayOf<T>.Empty;
+        }
+
+        public static string ToJoinedString<T>(this IEnumerable<T> self)
+        {
+            return String.Join(",", self);
         }
     }
 }

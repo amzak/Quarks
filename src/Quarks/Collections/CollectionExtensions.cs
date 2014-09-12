@@ -6,6 +6,11 @@ namespace Codestellation.Quarks.Collections
 {
     internal static class CollectionExtensions
     {
+        internal static class ArrayOf<T>
+        {
+            public static readonly T[] Empty = new T[0];
+        }
+        
         public static TOutput[] ConvertToArray<TInput, TOutput>(this TInput[] self, Func<TInput, TOutput> converter)
         {
             var result = new TOutput[self.Length];
@@ -62,6 +67,11 @@ namespace Codestellation.Quarks.Collections
         public static bool Empty<TItem>(this ICollection<TItem> self)
         {
             return self.Count == 0;
+        }
+
+        public static T[] EmptyIfNull<T>(this T[] self)
+        {
+            return self ?? ArrayOf<T>.Empty;
         }
 
         public static TItem ArrayFirst<TItem>(this TItem[] self)
@@ -190,11 +200,6 @@ namespace Codestellation.Quarks.Collections
                 result[count++] = item3;
             }
             return result;
-        }
-
-        public static string ToJoinedString<T>(this IEnumerable<T> self)
-        {
-            return string.Join(",", self);
         }
     }
 }
