@@ -51,5 +51,34 @@ namespace Codestellation.Quarks.IO
         {
             return Path.Combine(BasePath, path);
         }
+
+        public static void Copy(string sourcePath, string targetPath)
+        {
+            var source = new DirectoryInfo(ToFullPath(sourcePath));
+            var target = new DirectoryInfo(ToFullPath(targetPath));
+
+            if (!source.Exists)
+            {
+                return;
+            }
+            if (!target.Exists)
+            {
+                target.Create();
+            }
+
+            // Copy each file into the new directory.
+            foreach (FileInfo sourceFile in source.GetFiles())
+            {
+                var targetFilename = Path.Combine(target.ToString(), sourceFile.Name);
+                sourceFile.CopyTo(targetFilename, true);
+            }
+
+            // Copy each subdirectory using recursion.
+            foreach (DirectoryInfo sourceSubdirectory in source.GetDirectories())
+            {
+                var targetSubdirectory = Path.Combine(target.ToString(), sourceSubdirectory.Name);
+                Copy(sourceSubdirectory.FullName, targetSubdirectory);
+            }
+        }
     }
 }
