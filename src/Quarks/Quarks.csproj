@@ -61,6 +61,7 @@
     <Compile Include="StringUtils\TemplateExpander.cs" />
     <Compile Include="DateAndTime\Clock.cs" />
     <Compile Include="Threading\PreciseTimer.cs" />
+    <Compile Include="Threading\ThreadExtensions.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
