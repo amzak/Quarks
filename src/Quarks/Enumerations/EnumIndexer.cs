@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace Codestellation.Quarks.Enumerations
 {
-    internal class EnumIndexer<TEnum, TValue>
+    internal class EnumIndexer<TEnum, TValue> 
     {
         private static readonly int _arraySize;
         private static readonly Func<TEnum, int> ConvertToInt;
@@ -49,6 +51,11 @@ namespace Codestellation.Quarks.Enumerations
                 int intIndex = ConvertToInt(index);
                 _valueArray[intIndex] = value;
             } 
+        }
+
+        public TValue[] GetValues()
+        {
+            return _valueArray;
         }
     }
 }
