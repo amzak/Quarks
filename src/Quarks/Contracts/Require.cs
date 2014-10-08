@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Codestellation.Quarks.Contracts
 {
-    public static class Require
+    internal static class Require
     {
         private const string CompileConstant = "QCONTRACT";
 
