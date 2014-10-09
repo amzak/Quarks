@@ -46,6 +46,7 @@
     <Compile Include="AllInternalsTests.cs" />
     <Compile Include="Collections\CollectionExtensionsTests.cs" />
     <Compile Include="DateAndTime\ClockTests.cs" />
+    <Compile Include="DateAndTime\DateTimeExtensionsTests.cs" />
     <Compile Include="Enumerations\EnumIndexerTests.cs" />
     <Compile Include="Enumerations\EnumUtil.cs" />
     <Compile Include="Collections\EnumerableExtensionsTests.cs" />

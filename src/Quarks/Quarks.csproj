@@ -41,6 +41,7 @@
     <Compile Include="Collections\DictionaryExtensions.cs" />
     <Compile Include="Collections\HashSetExtensions.cs" />
     <Compile Include="Contracts\Require.cs" />
+    <Compile Include="DateAndTime\DateTimeExtensions.cs" />
     <Compile Include="Exceptions\ExceptionExtensions.cs" />
     <Compile Include="IO\Folder.cs" />
     <Compile Include="Properties\AssebmlyInfo.cs" />
