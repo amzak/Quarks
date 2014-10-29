@@ -2,7 +2,7 @@
 
 namespace Codestellation.Quarks.Reflection
 {
-    public static class AssemblyVersion
+    internal static class AssemblyVersion
     {
         public static readonly string InformationalVersion;
 
