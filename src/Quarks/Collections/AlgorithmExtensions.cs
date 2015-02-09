@@ -11,12 +11,14 @@ namespace Codestellation.Quarks.Collections
         /// Fisher–Yates shuffle
         /// shuffles sequence, passed into function, doesn't copy anything
         /// </summary>
-        public static IList<T> Shuffle<T>(this IList<T> sequence)
+        public static IList<T> Shuffle<T>(this IList<T> sequence, Random random = null)
         {
+            var acutalRandom = random ?? Random;
+
             int length = sequence.Count;
             for (int i = length - 1; i > 0; i--)
             {
-                int randomIndex = Random.Next(i + 1);
+                int randomIndex = acutalRandom.Next(i + 1);
                 T item = sequence[randomIndex];
                 sequence[randomIndex] = sequence[i];
                 sequence[i] = item;
