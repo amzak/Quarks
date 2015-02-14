@@ -54,6 +54,7 @@
     <Compile Include="IO\FolderTests.cs" />
     <Compile Include="ScratchPad.cs" />
     <Compile Include="IO\ReusableStreamTests.cs" />
+    <Compile Include="Serialization\SpecialSerializerTests.cs" />
     <Compile Include="StringUtils\StringExtensionsTests.cs" />
     <Compile Include="Resources\EmbeddedResourceTests.cs" />
     <Compile Include="IO\StreamExtensionsTests.cs" />
