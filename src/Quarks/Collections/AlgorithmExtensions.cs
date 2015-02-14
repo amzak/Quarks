@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Codestellation.Quarks.Collections
 {
-    public static class AlgorithmExtensions
+    internal static class AlgorithmExtensions
     {
         static readonly Random Random = new Random();
 
