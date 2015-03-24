@@ -68,6 +68,7 @@
     <Compile Include="StringUtils\TemplateExpander.cs" />
     <Compile Include="DateAndTime\Clock.cs" />
     <Compile Include="Testing\Some.cs" />
+    <Compile Include="Testing\SomeBoolean.cs" />
     <Compile Include="Testing\SomeDecimal.cs" />
     <Compile Include="Testing\SomeDouble.cs" />
     <Compile Include="Testing\SomeGuid.cs" />
