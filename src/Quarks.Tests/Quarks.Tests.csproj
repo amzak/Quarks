@@ -65,6 +65,7 @@
     <Compile Include="Testing\SomeInt32Tests.cs" />
     <Compile Include="Testing\SomeInt64Tests.cs" />
     <Compile Include="Testing\SomeTests.cs" />
+    <Compile Include="Testing\SomeUInt32Tests.cs" />
     <Compile Include="Threading\PriciseTimerTests.cs" />
   </ItemGroup>
   <ItemGroup>
