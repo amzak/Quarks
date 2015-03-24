@@ -59,6 +59,9 @@
     <Compile Include="Resources\EmbeddedResourceTests.cs" />
     <Compile Include="IO\StreamExtensionsTests.cs" />
     <Compile Include="StringUtils\TemplateExpanderTests.cs" />
+    <Compile Include="Testing\FrequencyStatistics.cs" />
+    <Compile Include="Testing\SomeInt32Tests.cs" />
+    <Compile Include="Testing\SomeTests.cs" />
     <Compile Include="Threading\PriciseTimerTests.cs" />
   </ItemGroup>
   <ItemGroup>
