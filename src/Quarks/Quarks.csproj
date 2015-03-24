@@ -69,6 +69,7 @@
     <Compile Include="DateAndTime\Clock.cs" />
     <Compile Include="Testing\Some.cs" />
     <Compile Include="Testing\SomeDecimal.cs" />
+    <Compile Include="Testing\SomeDouble.cs" />
     <Compile Include="Testing\SomeInt32.cs" />
     <Compile Include="Testing\SomeInt64.cs" />
     <Compile Include="Threading\PreciseTimer.cs" />

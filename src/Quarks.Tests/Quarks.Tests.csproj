@@ -60,6 +60,7 @@
     <Compile Include="IO\StreamExtensionsTests.cs" />
     <Compile Include="StringUtils\TemplateExpanderTests.cs" />
     <Compile Include="Testing\FrequencyStatistics.cs" />
+    <Compile Include="Testing\SomeDoubleTests.cs" />
     <Compile Include="Testing\SomeDecimalTests.cs" />
     <Compile Include="Testing\SomeInt32Tests.cs" />
     <Compile Include="Testing\SomeInt64Tests.cs" />
