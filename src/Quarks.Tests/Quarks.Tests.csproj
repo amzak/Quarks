@@ -62,6 +62,7 @@
     <Compile Include="Testing\FrequencyStatistics.cs" />
     <Compile Include="Testing\SomeDecimalTests.cs" />
     <Compile Include="Testing\SomeInt32Tests.cs" />
+    <Compile Include="Testing\SomeInt64Tests.cs" />
     <Compile Include="Testing\SomeTests.cs" />
     <Compile Include="Threading\PriciseTimerTests.cs" />
   </ItemGroup>
