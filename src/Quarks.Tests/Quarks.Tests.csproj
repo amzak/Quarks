@@ -63,6 +63,7 @@
     <Compile Include="Testing\SomeBooleanTests.cs" />
     <Compile Include="Testing\SomeDoubleTests.cs" />
     <Compile Include="Testing\SomeDecimalTests.cs" />
+    <Compile Include="Testing\SomeEnumTests.cs" />
     <Compile Include="Testing\SomeInt32Tests.cs" />
     <Compile Include="Testing\SomeInt64Tests.cs" />
     <Compile Include="Testing\SomeTests.cs" />
