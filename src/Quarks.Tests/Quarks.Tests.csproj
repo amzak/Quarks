@@ -62,6 +62,7 @@
     <Compile Include="Testing\FrequencyStatistics.cs" />
     <Compile Include="Testing\SomeBooleanTests.cs" />
     <Compile Include="Testing\SomeCollectionTests.cs" />
+    <Compile Include="Testing\SomeDateTimeTests.cs" />
     <Compile Include="Testing\SomeDoubleTests.cs" />
     <Compile Include="Testing\SomeDecimalTests.cs" />
     <Compile Include="Testing\SomeEnumTests.cs" />
