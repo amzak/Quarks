@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Codestellation.Quarks.Testing;
 using NUnit.Framework;
 
@@ -14,11 +13,7 @@ namespace Codestellation.Quarks.Tests.Testing
         [TestCase(uint.MaxValue - 1, uint.MaxValue)]
         public void Should_generate_values_between_min_and_max(uint min, uint max)
         {
-            // when
-            var results = ListOf(() => Some.UInt32(min, max));
-
-            // then
-            Assert.That(results, Has.All.InRange(min, max));
+            Should_generate_values_between_min_and_max(Some.UInt32, min, max);
         }
 
         [Test]
@@ -27,12 +22,7 @@ namespace Codestellation.Quarks.Tests.Testing
         [TestCase(uint.MaxValue - 1, uint.MaxValue)]
         public void Should_generate_different_values(uint min, uint max)
         {
-            // when
-            var results = ListOf(() => Some.UInt32(min, max));
-            var distinctResults = results.Distinct().ToList();
-
-            // then
-            Assert.That(distinctResults.Count, Is.Not.EqualTo(1), "All generated values are the same");
+            Should_generate_different_values(Some.UInt32, min, max);
         }
 
         [Test]
@@ -41,11 +31,7 @@ namespace Codestellation.Quarks.Tests.Testing
         [TestCase(uint.MaxValue)]
         public void Should_return_min_if_min_equal_to_max(uint bound)
         {
-            // when
-            var results = ListOf(() => Some.UInt32(bound, bound));
-
-            // then
-            Assert.That(results, Has.All.EqualTo(bound));
+            Should_return_min_if_min_equal_to_max(Some.UInt32, bound);
         }
 
         [Test]
@@ -62,19 +48,7 @@ namespace Codestellation.Quarks.Tests.Testing
         [TestCase(0u, 100u)]
         public void Should_generate_uniform_distribution(uint min, uint max)
         {
-            // given
-            const int listSize = 10000;
-
-            // when
-            var results = ListOf(() => Some.UInt32(min, max), listSize);
-            var stats = StatsFor(results);
-            var minFrequency = stats.MinFrequency;
-            var maxFrequency = stats.MaxFrequency;
-
-            // then
-            Assert.That(minFrequency, Is.Positive);
-            Assert.That(maxFrequency, Is.AtLeast(minFrequency));
-            Assert.That(maxFrequency / (double)minFrequency, Is.AtMost(3.5), "Frequency variation is too high");
+            Should_generate_uniform_distribution(Some.UInt32, min, max, 3.5);
         }
     }
 }

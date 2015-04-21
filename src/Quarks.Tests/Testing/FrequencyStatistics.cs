@@ -30,12 +30,24 @@ namespace Codestellation.Quarks.Tests.Testing
             get { return _stats.Max(s => s.Value); }
         }
 
+        public double FrequencyVariation
+        {
+            get { return MaxFrequency / (double)MinFrequency; }
+        }
+
         public void Print()
         {
+            Console.WriteLine("Frequencies:\n");
             foreach (var stat in _stats.OrderByDescending(s => s.Value))
             {
-                Console.WriteLine("{0} : {1} times", stat.Key, stat.Value);
+                Console.WriteLine("\t{0} : {1} times", stat.Key, stat.Value);
             }
+
+            Console.WriteLine(
+                "\nFrequency variation = Max / Min = {0} / {1} = {2}",
+                MaxFrequency,
+                MinFrequency,
+                FrequencyVariation);
         }
     }
 }
