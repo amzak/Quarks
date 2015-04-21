@@ -76,6 +76,8 @@
     <Compile Include="Testing\SomeGuid.cs" />
     <Compile Include="Testing\SomeInt32.cs" />
     <Compile Include="Testing\SomeInt64.cs" />
+    <Compile Include="Testing\SomeString.cs" />
+    <Compile Include="Testing\SomeStringOptions.cs" />
     <Compile Include="Testing\SomeUInt32.cs" />
     <Compile Include="Threading\PreciseTimer.cs" />
     <Compile Include="Threading\ThreadExtensions.cs" />
