@@ -4,6 +4,14 @@ namespace Codestellation.Quarks.Testing
 {
     internal static partial class Some
     {
+        public static DateTime DateTime()
+        {
+            var min = System.DateTime.MinValue;
+            var max = System.DateTime.MaxValue;
+
+            return DateTime(min, max);
+        }
+
         public static DateTime DateTime(DateTime min, DateTime max)
         {
             if (min > max)
