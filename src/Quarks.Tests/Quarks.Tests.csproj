@@ -70,6 +70,7 @@
     <Compile Include="Testing\SomeInt64Tests.cs" />
     <Compile Include="Testing\SomeStringTests.cs" />
     <Compile Include="Testing\SomeTests.cs" />
+    <Compile Include="Testing\SomeTimeSpanTests.cs" />
     <Compile Include="Testing\SomeUInt32Tests.cs" />
     <Compile Include="Threading\PriciseTimerTests.cs" />
   </ItemGroup>

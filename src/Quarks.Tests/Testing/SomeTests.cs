@@ -33,6 +33,16 @@ namespace Codestellation.Quarks.Tests.Testing
             Assert.That(results, Has.All.InRange(min, max));
         }
 
+        protected void Should_generate_values_between_zero_and_max<T>(Func<T, T> some, T zero, T max)
+            where T : IComparable<T>
+        {
+            // when
+            var results = ListOf(() => some(max));
+
+            // then
+            Assert.That(results, Has.All.InRange(zero, max));
+        }
+
         protected void Should_return_min_if_min_equal_to_max<T>(Func<T, T, T> some, T min)
             where T : IEquatable<T>
         {
@@ -46,6 +56,11 @@ namespace Codestellation.Quarks.Tests.Testing
         protected void Should_generate_different_values<T>(Func<T, T, T> some, T min, T max)
         {
             Should_generate_different_values(() => some(min, max));
+        }
+
+        protected void Should_generate_different_values<T>(Func<T, T> some, T bound)
+        {
+            Should_generate_different_values(() => some(bound));
         }
 
         protected void Should_generate_different_values<T>(Func<T> some)
@@ -63,6 +78,11 @@ namespace Codestellation.Quarks.Tests.Testing
         protected void Should_generate_uniform_distribution<T>(Func<T, T, T> some, T min, T max, double maxVariation)
         {
             Should_generate_uniform_distribution(() => some(min, max), maxVariation);
+        }
+
+        protected void Should_generate_uniform_distribution<T>(Func<T, T> some, T bound, double maxVariation)
+        {
+            Should_generate_uniform_distribution(() => some(bound), maxVariation);
         }
 
         protected void Should_generate_uniform_distribution<T>(Func<T> some, double maxVariation)
