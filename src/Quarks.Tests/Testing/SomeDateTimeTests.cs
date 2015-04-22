@@ -25,6 +25,20 @@ namespace Codestellation.Quarks.Tests.Testing
             new object[] { new DateTime(2015, 1, 1) },
         };
 
+        private static readonly object[] GreaterThanCases =
+        {
+            new object[] { DateTime.MinValue },
+            new object[] { new DateTime(2015, 1, 1) },
+            new object[] { DateTime.MaxValue.AddTicks(-1) },
+        };
+
+        private static readonly object[] LessThanCases =
+        {
+            new object[] { DateTime.MinValue.AddTicks(1) },
+            new object[] { new DateTime(2015, 1, 1) },
+            new object[] { DateTime.MaxValue },
+        };
+
         [Test, TestCaseSource("CommonCases")]
         public void Should_generate_different_values(DateTime min, DateTime max)
         {
@@ -59,6 +73,51 @@ namespace Codestellation.Quarks.Tests.Testing
 
             // when
             Some.DateTime(min, max);
+        }
+
+        [Test, TestCaseSource("GreaterThanCases")]
+        public void Should_generate_values_greater_than_specified(DateTime specified)
+        {
+            // when
+            var greater = Some.DateTimeGreaterThan(specified);
+            // then
+            Assert.That(greater, Is.GreaterThan(specified));
+        }
+
+        [Test, TestCaseSource("LessThanCases")]
+        public void Should_generate_values_less_than_specified(DateTime specified)
+        {
+            // when
+            var greater = Some.DateTimeLessThan(specified);
+            // then
+            Assert.That(greater, Is.LessThan(specified));
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void Should_throw_if_generating_value_greater_than_max_date_time()
+        {
+            Some.DateTimeGreaterThan(DateTime.MaxValue);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void Should_throw_if_generating_value_less_than_min_date_time()
+        {
+            Some.DateTimeLessThan(DateTime.MinValue);
+        }
+
+        [Test]
+        [TestCase(0, 1)]
+        [TestCase(123456789012345678L, 123456789012345679L)]
+        public void Should_generate_values_from_ticks(long lesserTick, long greaterTick)
+        {
+            // when
+            var lesser = Some.DateTime(lesserTick);
+            var greater = Some.DateTime(greaterTick);
+
+            // then
+            Assert.That(lesser, Is.LessThan(greater));
         }
     }
 }
