@@ -45,10 +45,10 @@ namespace Codestellation.Quarks.Tests.Testing
             Should_generate_different_values(Some.DateTime, min, max);
         }
 
-        [Test, TestCaseSource("CommonCases")]
+        [Test, TestCaseSource("CommonCases"), Explicit]
         public void Should_generate_uniform_distribution(DateTime min, DateTime max)
         {
-            Should_generate_uniform_distribution(Some.DateTime, min, max, 2);
+            Should_generate_uniform_distribution(Some.DateTime, min, max);
         }
 
         [Test, TestCaseSource("CommonCases")]

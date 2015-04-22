@@ -38,10 +38,10 @@ namespace Codestellation.Quarks.Tests.Testing
             Should_generate_different_values(_elementOf);
         }
 
-        [Test]
+        [Test, Explicit]
         public void ElementOf_should_generate_uniform_distribution()
         {
-            Should_generate_uniform_distribution(_elementOf, 1.2);
+            Should_generate_uniform_distribution(_elementOf);
         }
 
         [Test]
@@ -64,10 +64,10 @@ namespace Codestellation.Quarks.Tests.Testing
             Should_generate_different_values(_indexOf);
         }
 
-        [Test]
+        [Test, Explicit]
         public void IndexOf_should_generate_uniform_distribution()
         {
-            Should_generate_uniform_distribution(_indexOf, 1.2);
+            Should_generate_uniform_distribution(_indexOf);
         }
 
         [Test]

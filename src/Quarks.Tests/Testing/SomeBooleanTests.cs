@@ -12,10 +12,10 @@ namespace Codestellation.Quarks.Tests.Testing
             Should_generate_different_values(Some.Boolean);
         }
 
-        [Test]
+        [Test, Explicit]
         public void Should_generate_uniform_distribution()
         {
-            Should_generate_uniform_distribution(Some.Boolean, 1.1);
+            Should_generate_uniform_distribution(Some.Boolean);
         }
     }
 }

@@ -72,10 +72,10 @@ namespace Codestellation.Quarks.Tests.Testing
             Some.Decimal(min, max);
         }
 
-        [Test, TestCaseSource("UniformDistributionCases")]
+        [Test, TestCaseSource("UniformDistributionCases"), Explicit]
         public void Should_generate_uniform_distribution(decimal min, decimal max)
         {
-            Should_generate_uniform_distribution(Some.Decimal, min, max, 2.0);
+            Should_generate_uniform_distribution(Some.Decimal, min, max);
         }
     }
 }

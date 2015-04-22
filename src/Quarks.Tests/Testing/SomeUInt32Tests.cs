@@ -43,12 +43,12 @@ namespace Codestellation.Quarks.Tests.Testing
             Some.UInt32(min, max);
         }
 
-        [Test]
+        [Test, Explicit]
         [TestCase(0u, 1u)]
         [TestCase(0u, 100u)]
         public void Should_generate_uniform_distribution(uint min, uint max)
         {
-            Should_generate_uniform_distribution(Some.UInt32, min, max, 3.5);
+            Should_generate_uniform_distribution(Some.UInt32, min, max);
         }
     }
 }

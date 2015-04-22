@@ -72,10 +72,10 @@ namespace Codestellation.Quarks.Tests.Testing
             Some.Double(min, max);
         }
 
-        [Test, TestCaseSource("UniformDistributionCases")]
+        [Test, TestCaseSource("UniformDistributionCases"), Explicit]
         public void Should_generate_uniform_distribution(double min, double max)
         {
-            Should_generate_uniform_distribution(Some.Double, min, max, 2.0);
+            Should_generate_uniform_distribution(Some.Double, min, max);
         }
     }
 }

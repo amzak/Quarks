@@ -33,12 +33,12 @@ namespace Codestellation.Quarks.Tests.Testing
             Should_generate_different_values(() => Some.Enum(enumType));
         }
 
-        [Test]
+        [Test, Explicit]
         [TestCase(typeof(SimpleEnum))]
         [TestCase(typeof(NumberedEnum))]
         public void Should_generate_uniform_distribution(Type enumType)
         {
-            Should_generate_uniform_distribution(() => Some.Enum(enumType), 1.1);
+            Should_generate_uniform_distribution(() => Some.Enum(enumType));
         }
 
         [Test]

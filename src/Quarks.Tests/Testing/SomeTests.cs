@@ -75,17 +75,17 @@ namespace Codestellation.Quarks.Tests.Testing
             Assert.That(distinctResults.Count, Is.Not.EqualTo(1), "All generated values are the same");
         }
 
-        protected void Should_generate_uniform_distribution<T>(Func<T, T, T> some, T min, T max, double maxVariation)
+        protected void Should_generate_uniform_distribution<T>(Func<T, T, T> some, T min, T max)
         {
-            Should_generate_uniform_distribution(() => some(min, max), maxVariation);
+            Should_generate_uniform_distribution(() => some(min, max));
         }
 
-        protected void Should_generate_uniform_distribution<T>(Func<T, T> some, T bound, double maxVariation)
+        protected void Should_generate_uniform_distribution<T>(Func<T, T> some, T bound)
         {
-            Should_generate_uniform_distribution(() => some(bound), maxVariation);
+            Should_generate_uniform_distribution(() => some(bound));
         }
 
-        protected void Should_generate_uniform_distribution<T>(Func<T> some, double maxVariation)
+        protected void Should_generate_uniform_distribution<T>(Func<T> some)
         {
             // given
             const int listSize = 10000;
@@ -97,7 +97,6 @@ namespace Codestellation.Quarks.Tests.Testing
             // then
             Assert.That(stats.MinFrequency, Is.Positive);
             Assert.That(stats.MaxFrequency, Is.AtLeast(stats.MinFrequency));
-            Assert.That(stats.FrequencyVariation, Is.AtMost(maxVariation), "Frequency variation is too high");
         }
     }
 }

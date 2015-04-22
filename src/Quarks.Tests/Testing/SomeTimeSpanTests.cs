@@ -58,10 +58,10 @@ namespace Codestellation.Quarks.Tests.Testing
             Should_generate_different_values(Some.TimeSpan, min, max);
         }
 
-        [Test, TestCaseSource("MinMaxUniformDistributionCases")]
+        [Test, TestCaseSource("MinMaxUniformDistributionCases"), Explicit]
         public void Should_generate_uniform_distribution(TimeSpan min, TimeSpan max)
         {
-            Should_generate_uniform_distribution(Some.TimeSpan, min, max, 2);
+            Should_generate_uniform_distribution(Some.TimeSpan, min, max);
         }
 
         [Test, TestCaseSource("MinMaxCases")]
@@ -94,10 +94,10 @@ namespace Codestellation.Quarks.Tests.Testing
             Should_generate_different_values(Some.PositiveTimeSpan, max);
         }
 
-        [Test, TestCaseSource("PositiveUniformDistributionCases")]
+        [Test, TestCaseSource("PositiveUniformDistributionCases"), Explicit]
         public void Should_generate_uniform_distribution_of_positive_values(TimeSpan max)
         {
-            Should_generate_uniform_distribution(Some.PositiveTimeSpan, max, 2);
+            Should_generate_uniform_distribution(Some.PositiveTimeSpan, max);
         }
 
         [Test, TestCaseSource("PositiveCases")]
