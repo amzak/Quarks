@@ -6,9 +6,10 @@ namespace Codestellation.Quarks.Enumerations
 {
     internal class EnumIndexer<TEnum, TValue>
     {
-        private static readonly int _arraySize;
+        private static readonly int ArraySize;
         private static readonly Func<TEnum, int> ConvertToInt;
         private TValue[] _valueArray;
+        private static readonly int Offset;
 
         static EnumIndexer()
         {
@@ -17,9 +18,12 @@ namespace Codestellation.Quarks.Enumerations
                 throw new InvalidOperationException("Type parameter TEnum must be an Enum");
             }
 
-            var maxValue = Enum.GetValues(typeof(TEnum)).Cast<TEnum>().Select(x => Convert.ToInt32(x)).Max();
+            var members = Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
+            var maxValue = members.Select(x => Convert.ToInt32(x)).Max();
+            var minValue = members.Select(x => Convert.ToInt32(x)).Min();
 
-            _arraySize = maxValue + 1;
+            Offset = -minValue;
+            ArraySize = maxValue - minValue + 1;
 
             var enumValue = Expression.Parameter(typeof(TEnum));
             var castToInt = Expression.Convert(enumValue, typeof(int));
@@ -33,20 +37,19 @@ namespace Codestellation.Quarks.Enumerations
 
         private void InitializeArray()
         {
-
-            _valueArray = new TValue[_arraySize];
+            _valueArray = new TValue[ArraySize];
         }
 
         public TValue this[TEnum index]
         {
             get
             {
-                int intIndex = ConvertToInt(index);
+                int intIndex = ConvertToInt(index) + Offset;
                 return _valueArray[intIndex];
             }
             set
             {
-                int intIndex = ConvertToInt(index);
+                int intIndex = ConvertToInt(index) + Offset;
                 _valueArray[intIndex] = value;
             }
         }
