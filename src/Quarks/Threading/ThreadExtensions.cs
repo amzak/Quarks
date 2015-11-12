@@ -18,7 +18,14 @@ namespace Codestellation.Quarks.Threading
             {
                 return true;
             }
+
+            if (self == Thread.CurrentThread)
+            {
+                //deadlock possible otherwise
+                return true;
+            }
+
             return self.Join(timeOut ?? InfiniteTimeout);
-        } 
+        }
     }
 }

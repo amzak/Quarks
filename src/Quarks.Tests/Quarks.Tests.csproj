@@ -73,6 +73,7 @@
     <Compile Include="Testing\SomeTimeSpanTests.cs" />
     <Compile Include="Testing\SomeUInt32Tests.cs" />
     <Compile Include="Threading\PriciseTimerTests.cs" />
+    <Compile Include="Threading\ThreadExtensionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Quarks\Quarks.csproj">
