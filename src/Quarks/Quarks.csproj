@@ -46,6 +46,7 @@
     <Compile Include="DateAndTime\DateTimeExtensions.cs" />
     <Compile Include="Exceptions\ExceptionExtensions.cs" />
     <Compile Include="IO\Folder.cs" />
+    <Compile Include="Pooling\EagerPool.cs" />
     <Compile Include="Properties\AssebmlyInfo.cs" />
     <Compile Include="Enumerations\EnumIndexer.cs" />
     <Compile Include="Enumerations\EnumUtil.cs" />

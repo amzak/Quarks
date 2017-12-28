@@ -87,6 +87,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Pooling\" />
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
