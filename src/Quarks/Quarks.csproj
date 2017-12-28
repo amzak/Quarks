@@ -41,6 +41,7 @@
     <Compile Include="Collections\CollectionExtensions.cs" />
     <Compile Include="Collections\DictionaryExtensions.cs" />
     <Compile Include="Collections\HashSetExtensions.cs" />
+    <Compile Include="Collections\ListExtensions.cs" />
     <Compile Include="Components\Optional.cs" />
     <Compile Include="Contracts\Require.cs" />
     <Compile Include="DateAndTime\DateTimeExtensions.cs" />
