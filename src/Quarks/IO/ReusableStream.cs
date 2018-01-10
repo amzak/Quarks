@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 namespace Codestellation.Quarks.IO
@@ -7,59 +7,53 @@ namespace Codestellation.Quarks.IO
     {
         private byte[] _internalBuffer;
         private long _position;
+        private long _length;
 
-        public ReusableStream(byte[] buffer)
+        public ReusableStream(byte[] buffer, long? length = null)
         {
             if (buffer == null)
             {
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
             }
 
-            ChangeBuffer(buffer);
+            ChangeBuffer(buffer, length);
         }
 
-        public void ChangeBuffer(byte[] buffer)
+        public void ChangeBuffer(byte[] buffer, long? length = null)
         {
+            if ((_length = length ?? buffer.Length) < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(length), "Must be non-negative number or null");
+            }
+
             _internalBuffer = buffer;
             _position = 0;
-            //TODO: other cleanup;
         }
 
-        public override bool CanRead
-        {
-            get { return true; }
-        }
+        public override bool CanRead => true;
 
-        public override bool CanSeek
-        {
-            get { return true; }
-        }
+        public override bool CanSeek => true;
 
-        public override bool CanWrite
-        {
-            get { return true; }
-        }
+        public override bool CanWrite => true;
 
-        public override long Length
-        {
-            get { return _internalBuffer.LongLength; }
-        }
+        public override long Length => _length;
 
         public override long Position
         {
-            get { return _position; }
+            get => _position;
             set
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", "Position must be non-negative value");
+                    throw new ArgumentOutOfRangeException(nameof(value), "Position must be non-negative value");
                 }
 
                 if (value > Length)
                 {
-                    var message = string.Format("Value must be lower than buffer length {0}", _internalBuffer.Length);
-                    throw new ArgumentOutOfRangeException("value", message);
+                    var message = $"Value must be lower than length {_length}";
+                    throw new ArgumentOutOfRangeException(nameof(value), message);
                 }
+
                 _position = value;
             }
         }
@@ -76,11 +70,12 @@ namespace Codestellation.Quarks.IO
                     break;
 
                 case SeekOrigin.End:
-                    SeekInternal(_internalBuffer.Length + offset);
+                    SeekInternal(_length + offset);
                     break;
                 default:
-                    throw new ArgumentException("Invalid SeekOrigin", "origin");
+                    throw new ArgumentException("Invalid SeekOrigin", nameof(origin));
             }
+
             return _position;
         }
 
@@ -90,16 +85,18 @@ namespace Codestellation.Quarks.IO
             {
                 throw new IOException("Could not seek before origin");
             }
-            if (position >= _internalBuffer.Length)
+
+            if (position >= _length)
             {
                 throw new IOException("Could not seek beyond stream length");
             }
+
             _position = position;
         }
 
         public override int ReadByte()
         {
-            if (_position >= _internalBuffer.Length)
+            if (_position >= _length)
             {
                 return -1;
             }
@@ -111,7 +108,7 @@ namespace Codestellation.Quarks.IO
         {
             ValidateParameters(buffer, offset, count);
 
-            var maxBytesToRead = _internalBuffer.Length - (int)_position;
+            var maxBytesToRead = (int)(_length - _position);
 
             var bytesToRead = maxBytesToRead < count ? maxBytesToRead : count;
 
@@ -129,10 +126,11 @@ namespace Codestellation.Quarks.IO
 
         public override void WriteByte(byte value)
         {
-            if (_position >= _internalBuffer.Length)
+            if (_position >= _length)
             {
                 throw new IOException("Could not write beyond buffer length");
             }
+
             _internalBuffer[_position++] = value;
         }
 
@@ -142,6 +140,7 @@ namespace Codestellation.Quarks.IO
 
             int bytesToWrite = count;
 
+            //TODO: Consider faster unsafe copying
             Array.Copy(buffer, offset, _internalBuffer, _position, count);
 
             _position += bytesToWrite;
@@ -151,16 +150,19 @@ namespace Codestellation.Quarks.IO
         {
             if (buffer == null)
             {
-                throw new ArgumentNullException("buffer", "Buffer cannot be null");
+                throw new ArgumentNullException(nameof(buffer), "Buffer cannot be null");
             }
+
             if (offset < 0)
             {
-                throw new ArgumentOutOfRangeException("offset", "Offset should be non negative number");
+                throw new ArgumentOutOfRangeException(nameof(offset), "Offset should be non negative number");
             }
+
             if (count < 0)
             {
-                throw new ArgumentOutOfRangeException("count", "Offset should be non negative number");
+                throw new ArgumentOutOfRangeException(nameof(count), "Offset should be non negative number");
             }
+
             //if (buffer.Length - offset < count)
             //{
             //    throw new ArgumentException(Environment.GetResourceString("Argument_InvalidOffLen"));
