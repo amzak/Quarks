@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 
 namespace Codestellation.Quarks.Contracts
 {
-    internal static class Require
+    public static class Require
     {
         private const string CompileConstant = "QCONTRACT";
 

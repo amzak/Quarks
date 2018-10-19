@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Linq;
 
 namespace Codestellation.Quarks.IO
@@ -6,7 +6,7 @@ namespace Codestellation.Quarks.IO
     /// <summary>
     /// Encapsulates functionality for pooling streams. 
     /// </summary>
-    internal class StreamPool
+    public class StreamPool
     {
         private readonly PoolSizeSettings _settings;
         private readonly PooledMemoryStream[] _pooledStreams;

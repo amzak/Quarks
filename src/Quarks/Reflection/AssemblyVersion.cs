@@ -1,8 +1,8 @@
-﻿using System.Reflection;
+using System.Reflection;
 
 namespace Codestellation.Quarks.Reflection
 {
-    internal static class AssemblyVersion
+    public static class AssemblyVersion
     {
         public static readonly string InformationalVersion;
 

@@ -13,10 +13,23 @@ namespace Codestellation.Quarks.Tests.Testing
             Should_generate_different_values(Some.String);
         }
 
-        [Test, Explicit]
-        public void Should_generate_uniform_distribution()
+        [Test]
+        [TestCase("hello")]
+        [TestCase("prefix")]
+        [TestCase("_?*/â„–\\#Ðª")]
+        public void Should_generate_prefixed_string(string prefix)
         {
-            Should_generate_uniform_distribution(Some.String);
+            // given
+            var expectedLength = prefix.Length +
+                                 Some.StringOptions.Delimiter.Length +
+                                 Some.StringOptions.DefaultLength;
+
+            // when
+            var result = Some.String(prefix);
+
+            // then
+            Assert.That(result, Does.StartWith(prefix));
+            Assert.That(result, Has.Length.EqualTo(expectedLength));
         }
 
         [Test]
@@ -33,31 +46,10 @@ namespace Codestellation.Quarks.Tests.Testing
         }
 
         [Test]
-        [TestCase(-1)]
-        [TestCase(-10)]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void Should_throw_if_required_length_is_negative(int length)
+        [Explicit]
+        public void Should_generate_uniform_distribution()
         {
-            Some.String(length);
-        }
-
-        [Test]
-        [TestCase("hello")]
-        [TestCase("prefix")]
-        [TestCase("_?*/¹\\#Ú")]
-        public void Should_generate_prefixed_string(string prefix)
-        {
-            // given
-            var expectedLength = prefix.Length +
-                Some.StringOptions.Delimiter.Length +
-                Some.StringOptions.DefaultLength;
-
-            // when
-            var result = Some.String(prefix);
-
-            // then
-            Assert.That(result, Is.StringStarting(prefix));
-            Assert.That(result, Has.Length.EqualTo(expectedLength));
+            Should_generate_uniform_distribution(Some.String);
         }
 
         [Test]
@@ -69,8 +61,16 @@ namespace Codestellation.Quarks.Tests.Testing
             var result = Some.String(prefix, length);
 
             // then
-            Assert.That(result, Is.Not.StringStarting(Some.StringOptions.Delimiter));
+            Assert.That(result, Does.Not.StartWith(Some.StringOptions.Delimiter));
             Assert.That(result, Has.Length.EqualTo(length));
+        }
+
+        [Test]
+        [TestCase(-1)]
+        [TestCase(-10)]
+        public void Should_throw_if_required_length_is_negative(int length)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => Some.String(length));
         }
     }
 }

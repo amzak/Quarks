@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Codestellation.Quarks.StringUtils
 {
-    internal class TemplateExpander
+    public class TemplateExpander
     {
           private delegate string Renderer(object arg);
         

@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
 
 namespace Codestellation.Quarks.IO
 {
-    internal static class Folder
+    public static class Folder
     {
         public static readonly string BasePath = AppDomain.CurrentDomain.BaseDirectory;
 

@@ -2,7 +2,7 @@
 
 namespace Codestellation.Quarks.Testing
 {
-    internal static partial class Some
+    public static partial class Some
     {
         public static uint UInt32(uint min, uint max)
         {

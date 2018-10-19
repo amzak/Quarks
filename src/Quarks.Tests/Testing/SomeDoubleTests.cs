@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Codestellation.Quarks.Testing;
 using NUnit.Framework;
 
@@ -66,10 +66,9 @@ namespace Codestellation.Quarks.Tests.Testing
         }
 
         [Test, TestCaseSource("MinGreaterThanMaxCases")]
-        [ExpectedException(typeof(ArgumentException))]
         public void Should_throw_if_min_greater_than_max(double min, double max)
         {
-            Some.Double(min, max);
+            Assert.Throws<ArgumentException>(() => Some.Double(min, max));
         }
 
         [Test, TestCaseSource("UniformDistributionCases"), Explicit]

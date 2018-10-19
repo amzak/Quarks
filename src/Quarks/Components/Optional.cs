@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Linq.Expressions;
 
 namespace Codestellation.Quarks.Components
 {
-    internal struct Optional<TValue>
+    public struct Optional<TValue>
     {
         private TValue _option;
 
@@ -33,7 +33,7 @@ namespace Codestellation.Quarks.Components
         }
     }
 
-    internal static class Optional
+    public static class Optional
     {
         private static readonly ConcurrentDictionary<Tuple<Type, string>, Func<object, bool>> ReadersCache = 
             new ConcurrentDictionary<Tuple<Type, string>, Func<object, bool>>(); 

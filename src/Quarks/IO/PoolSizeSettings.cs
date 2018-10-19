@@ -1,9 +1,9 @@
-﻿namespace Codestellation.Quarks.IO
+namespace Codestellation.Quarks.IO
 {
     /// <summary>
     /// Contains settings for thread-pool
     /// </summary>
-    internal struct PoolSizeSettings
+    public struct PoolSizeSettings
     {
         /// <summary>
         /// Settings used by default

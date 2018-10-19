@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Threading;
 using Codestellation.Quarks.IO;
 using NUnit.Framework;
@@ -70,7 +70,7 @@ namespace Codestellation.Quarks.Tests.IO
             string path = Folder.Combine("Foo");
             
             //then
-            Assert.That(path, Is.StringStarting(Folder.BasePath));
+            Assert.That(path, Does.StartWith(Folder.BasePath));
         }
 
         [Test]

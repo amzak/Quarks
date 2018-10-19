@@ -45,17 +45,15 @@ namespace Codestellation.Quarks.Tests.Testing
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void ElementOf_should_throw_if_list_is_null()
         {
-            Some.ElementOf(_nullList);
+            Assert.Throws<ArgumentNullException>(() => Some.ElementOf(_nullList));
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void ElementOf_should_throw_if_list_is_empty()
         {
-            Some.ElementOf(_emptyList);
+            Assert.Throws<ArgumentException>(() => Some.ElementOf(_emptyList));
         }
 
         [Test]
@@ -71,17 +69,15 @@ namespace Codestellation.Quarks.Tests.Testing
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void IndexOf_should_throw_if_list_is_null()
         {
-            Some.IndexOf(_nullList);
+            Assert.Throws<ArgumentNullException>(() => Some.IndexOf(_nullList));
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void IndexOf_should_throw_if_list_is_empty()
         {
-            Some.IndexOf(_emptyList);
+            Assert.Throws<ArgumentException>(() => Some.IndexOf(_emptyList));
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using System.IO;
+using System.IO;
 
 namespace Codestellation.Quarks.IO
 {
-    internal static class StreamExtensions
+    public static class StreamExtensions
     {
         public static void CopyTo(this Stream source, Stream destination, byte[] buffer)
         {

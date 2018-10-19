@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.IO;
 
 namespace Codestellation.Quarks.IO
 {
-    internal sealed unsafe class UnsafeStringStream : Stream
+    public sealed unsafe class UnsafeStringStream : Stream
     {
         private readonly byte* _origin;
         private byte* _current;

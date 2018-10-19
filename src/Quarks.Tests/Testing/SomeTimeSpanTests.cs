@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Codestellation.Quarks.Testing;
 using NUnit.Framework;
 
@@ -77,7 +77,6 @@ namespace Codestellation.Quarks.Tests.Testing
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void Should_throw_if_min_greater_than_max()
         {
             // given
@@ -85,7 +84,7 @@ namespace Codestellation.Quarks.Tests.Testing
             var max = TimeSpan.MinValue;
 
             // when
-            Some.TimeSpan(min, max);
+            Assert.Throws<ArgumentException>(() => Some.TimeSpan(min, max));
         }
 
         [Test, TestCaseSource("PositiveCases")]
@@ -107,10 +106,9 @@ namespace Codestellation.Quarks.Tests.Testing
         }
 
         [Test, TestCaseSource("NonPositiveCases")]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Should_throw_while_generating_positive_value_if_max_is_zero_or_negative(TimeSpan max)
         {
-            Some.PositiveTimeSpan(max);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Some.PositiveTimeSpan(max));
         }
     }
 }

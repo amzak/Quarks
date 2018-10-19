@@ -1,6 +1,6 @@
 ﻿namespace Codestellation.Quarks.StringUtils
 {
-    internal static class StringExtensions
+    public static class StringExtensions
     {
         public static string FormatWith(this string self, params object[] args)
         {

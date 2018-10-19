@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Codestellation.Quarks.Threading
 {
-    internal static class ThreadExtensions
+    public static class ThreadExtensions
     {
         public static readonly TimeSpan InfiniteTimeout = TimeSpan.FromMilliseconds(-1);
 

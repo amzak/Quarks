@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Threading;
 
 namespace Codestellation.Quarks.IO
@@ -6,7 +6,7 @@ namespace Codestellation.Quarks.IO
     /// <summary>
     /// Contains additional functionality to make it possible to use in pool
     /// </summary>
-    internal class PooledMemoryStream : MemoryStream
+    public class PooledMemoryStream : MemoryStream
     {
         private const int Busy = 1;
         private const int Free = 0;

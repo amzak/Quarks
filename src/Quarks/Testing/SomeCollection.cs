@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Codestellation.Quarks.Testing
 {
-    internal static partial class Some
+    public static partial class Some
     {
         public static T ElementOf<T>(IList<T> list)
         {

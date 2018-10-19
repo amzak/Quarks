@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 
 namespace Codestellation.Quarks.DateAndTime
 {
-    internal static class Clock
+    public static class Clock
     {
         private static Func<DateTime> _dateTimeGenerator = () => DateTime.UtcNow;
         

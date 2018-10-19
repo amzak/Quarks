@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Codestellation.Quarks.Testing;
 using NUnit.Framework;
 
@@ -64,7 +64,6 @@ namespace Codestellation.Quarks.Tests.Testing
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void Should_throw_if_min_greater_than_max()
         {
             // given
@@ -72,7 +71,7 @@ namespace Codestellation.Quarks.Tests.Testing
             var max = DateTime.MinValue;
 
             // when
-            Some.DateTime(min, max);
+            Assert.Throws<ArgumentException>(() => Some.DateTime(min, max));
         }
 
         [Test, TestCaseSource("GreaterThanCases")]
@@ -94,17 +93,15 @@ namespace Codestellation.Quarks.Tests.Testing
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Should_throw_if_generating_value_greater_than_max_date_time()
         {
-            Some.DateTimeGreaterThan(DateTime.MaxValue);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Some.DateTimeGreaterThan(DateTime.MaxValue));
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Should_throw_if_generating_value_less_than_min_date_time()
         {
-            Some.DateTimeLessThan(DateTime.MinValue);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Some.DateTimeLessThan(DateTime.MinValue));
         }
 
         [Test]

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Codestellation.Quarks.Testing;
 using NUnit.Framework;
 
@@ -37,10 +37,9 @@ namespace Codestellation.Quarks.Tests.Testing
         [Test]
         [TestCase(1u, 0u)]
         [TestCase(uint.MaxValue, uint.MaxValue - 1)]
-        [ExpectedException(typeof(ArgumentException))]
         public void Should_throw_if_min_greater_than_max(uint min, uint max)
         {
-            Some.UInt32(min, max);
+            Assert.Throws<ArgumentException>(() => Some.UInt32(min, max));
         }
 
         [Test, Explicit]

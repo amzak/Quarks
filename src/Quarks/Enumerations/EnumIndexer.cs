@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace Codestellation.Quarks.Enumerations
 {
-    internal class EnumIndexer<TEnum, TValue>
+    public class EnumIndexer<TEnum, TValue>
     {
         private static readonly int ArraySize;
         private static readonly Func<TEnum, int> ConvertToInt;

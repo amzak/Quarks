@@ -1,8 +1,14 @@
-Quarks
-======
-[![Build status](https://ci.appveyor.com/api/projects/status/li8rpgmyawgg4302?svg=true)](https://ci.appveyor.com/project/solyutor/quarks)
+# Welcome to Codestellation.Quarks
+## Common classes, utilities and extension methods
 
+# How to build
+```bash
+# build
+dotnet build ./src -c=release
 
+# running tests
+dotnet test ./src/Quarks.Tests
 
-Reusable classes.
-
+# pack
+dotnet pack ./src -c=release
+```

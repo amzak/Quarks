@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 
 namespace Codestellation.Quarks.Collections
 {
-    internal static class DictionaryExtensions
+    public static class DictionaryExtensions
     {
         public static bool ThreadSafeAdd<TKey, TValue>(ref Dictionary<TKey, TValue> dictionary, TKey key, TValue value)
         {

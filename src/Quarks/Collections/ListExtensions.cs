@@ -12,7 +12,7 @@ namespace Codestellation.Quarks.Collections
             private readonly int _from;
             private readonly int _to;
 
-            internal SliceEnumerable(IList<T> list, int from, int to)
+            public SliceEnumerable(IList<T> list, int from, int to)
             {
                 _list = list;
                 _from = from;
@@ -48,7 +48,7 @@ namespace Codestellation.Quarks.Collections
 
             object IEnumerator.Current => _current;
 
-            internal SliceEnumerator(IList<T> list, int from, int to)
+            public SliceEnumerator(IList<T> list, int from, int to)
             {
                 _list = list;
                 _from = from;

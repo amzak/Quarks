@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -6,11 +6,11 @@ using System.Linq.Expressions;
 
 namespace Codestellation.Quarks.Collections
 {
-    internal static class CollectionExtensions
+    public static class CollectionExtensions
     {
         private static readonly ConcurrentDictionary<Expression, Tuple<Delegate, Delegate>> ComparisonCache = new ConcurrentDictionary<Expression, Tuple<Delegate, Delegate>>();
 
-        internal static class ArrayOf<T>
+        public static class ArrayOf<T>
         {
             public static readonly T[] EmptyArray = new T[0];
         }

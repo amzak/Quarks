@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace Codestellation.Quarks.Collections
 {
-    internal static class HashSetExtensions
+    public static class HashSetExtensions
     {
         public static bool ThreadSafeAdd<TItem>(ref HashSet<TItem> set, TItem item)
         {

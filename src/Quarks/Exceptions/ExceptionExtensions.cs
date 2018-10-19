@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Codestellation.Quarks.Exceptions
 {
-    internal static class ExceptionExtensions
+    public static class ExceptionExtensions
     {
         private static readonly Action<Exception> PreserveStackTrace;
 

@@ -2,9 +2,9 @@
 
 namespace Codestellation.Quarks.Native
 {
-    internal class LibraryHandle : SafeHandleZeroOrMinusOneIsInvalid
+    public class LibraryHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
-        internal string LibraryPath;
+        public string LibraryPath;
 
         public LibraryHandle() : base(true)
         {

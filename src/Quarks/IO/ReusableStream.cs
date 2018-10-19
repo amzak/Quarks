@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Codestellation.Quarks.IO
 {
-    internal sealed class ReusableStream : Stream
+    public sealed class ReusableStream : Stream
     {
         private byte[] _internalBuffer;
         private long _position;

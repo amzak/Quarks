@@ -3,7 +3,7 @@
 namespace Codestellation.Quarks.Native
 {
     [AttributeUsage(AttributeTargets.Delegate, AllowMultiple = false, Inherited = false)]
-    internal class UnmanagedProcedureAttribute : Attribute
+    public class UnmanagedProcedureAttribute : Attribute
     {
         public readonly string Name;
 

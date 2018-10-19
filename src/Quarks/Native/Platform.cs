@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace Codestellation.Quarks.Native
 {
-    internal static class Platform
+    public static class Platform
     {
         [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         private static extern LibraryHandle LoadLibrary(string dllToLoad);
@@ -16,7 +16,7 @@ namespace Codestellation.Quarks.Native
         private static extern MethodHandle GetProcAddress(LibraryHandle library, string procedureName);
 
 
-        internal static TDelegate GetUnmanagedDelegate<TDelegate>(this LibraryHandle library) where TDelegate : class
+        public static TDelegate GetUnmanagedDelegate<TDelegate>(this LibraryHandle library) where TDelegate : class
         {
             var delegateType = typeof(TDelegate);
             var attributeType = typeof(UnmanagedProcedureAttribute);

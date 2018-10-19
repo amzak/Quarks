@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace Codestellation.Quarks.Collections
 {
-    internal static class AlgorithmExtensions
+    public static class AlgorithmExtensions
     {
         static readonly Random Random = new Random();
 

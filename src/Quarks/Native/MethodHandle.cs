@@ -2,7 +2,7 @@
 
 namespace Codestellation.Quarks.Native
 {
-    internal class MethodHandle : SafeHandleZeroOrMinusOneIsInvalid
+    public class MethodHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
         public MethodHandle() : base(false)
         {

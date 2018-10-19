@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Codestellation.Quarks.Testing;
 using NUnit.Framework;
 
@@ -42,10 +42,9 @@ namespace Codestellation.Quarks.Tests.Testing
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void Should_throw_if_type_is_not_enum()
         {
-            Some.Enum<int>();
+            Assert.Throws<ArgumentException>(() => Some.Enum<int>());
         }
     }
 }
