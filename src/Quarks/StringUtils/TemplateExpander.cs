@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -9,8 +9,8 @@ namespace Codestellation.Quarks.StringUtils
 {
     public class TemplateExpander
     {
-          private delegate string Renderer(object arg);
-        
+        private delegate string Renderer(object arg);
+
         public readonly string Body;
         private Dictionary<Type, Renderer> _renderers;
         private readonly Tuple<bool, string>[] _bodyTemplate;
@@ -19,19 +19,19 @@ namespace Codestellation.Quarks.StringUtils
         public TemplateExpander(string body)
         {
             Body = body;
-            
+
             _renderers = new Dictionary<Type, Renderer>();
 
             string buffer = string.Empty;
-            bool property = false;
-            
+            var property = false;
+
             var bodyTemplate = new List<Tuple<bool, string>>();
 
 
-            for (int charIndex = 0; charIndex < body.Length; charIndex++)
+            for (var charIndex = 0; charIndex < body.Length; charIndex++)
             {
-                var symbol = body[charIndex];
-            
+                char symbol = body[charIndex];
+
                 if (symbol == '{')
                 {
                     if (buffer != string.Empty)
@@ -55,7 +55,7 @@ namespace Codestellation.Quarks.StringUtils
                     property = false;
                     continue;
                 }
-                
+
                 buffer += symbol;
 
                 if (charIndex == body.Length - 1)
@@ -74,8 +74,8 @@ namespace Codestellation.Quarks.StringUtils
             {
                 return Body;
             }
-            Renderer renderer;
-            if (!_renderers.TryGetValue(model.GetType(), out renderer))
+
+            if (!_renderers.TryGetValue(model.GetType(), out Renderer renderer))
             {
                 renderer = BuildAndCacheRenderer(model.GetType());
             }
@@ -92,9 +92,8 @@ namespace Codestellation.Quarks.StringUtils
             {
                 beforeCas = _renderers;
                 Thread.MemoryBarrier();
-                
-                Renderer result = null;
-                if (beforeCas.TryGetValue(getType, out result))
+
+                if (beforeCas.TryGetValue(getType, out Renderer result))
                 {
                     return result;
                 }
@@ -103,6 +102,7 @@ namespace Codestellation.Quarks.StringUtils
                 {
                     value = BuildRenderer(getType);
                 }
+
                 var newDictionary = new Dictionary<Type, Renderer>(beforeCas, beforeCas.Comparer) { { getType, value } };
 
                 afterCas = Interlocked.CompareExchange(ref _renderers, newDictionary, beforeCas);
@@ -115,25 +115,25 @@ namespace Codestellation.Quarks.StringUtils
         {
             var arguments = new Expression[_bodyTemplate.Length];
 
-            var parameter = Expression.Parameter(typeof (object), "input");
-            var castedParameter = Expression.Convert(parameter, type);
-            
-            for (int i = 0; i < _bodyTemplate.Length; i++)
+            ParameterExpression parameter = Expression.Parameter(typeof(object), "input");
+            UnaryExpression castedParameter = Expression.Convert(parameter, type);
+
+            for (var i = 0; i < _bodyTemplate.Length; i++)
             {
-                var template = _bodyTemplate[i];
-                var isPropertyOrField = template.Item1;
+                Tuple<bool, string> template = _bodyTemplate[i];
+                bool isPropertyOrField = template.Item1;
 
                 if (isPropertyOrField)
                 {
-                    var propertyName = template.Item2;
-                    var property = Expression.PropertyOrField(castedParameter, propertyName);
-                    var toStringMethod = Expression.Call(property, "ToString", null, null);
+                    string propertyName = template.Item2;
+                    MemberExpression property = Expression.PropertyOrField(castedParameter, propertyName);
+                    MethodCallExpression toStringMethod = Expression.Call(property, "ToString", null, null);
                     arguments[i] = toStringMethod;
                 }
                 else
                 {
-                    var constantString = template.Item2;
-                    arguments[i] = Expression.Constant(constantString, typeof (string));
+                    string constantString = template.Item2;
+                    arguments[i] = Expression.Constant(constantString, typeof(string));
                 }
             }
 
@@ -142,11 +142,11 @@ namespace Codestellation.Quarks.StringUtils
             {
                 return Expression.Lambda<Renderer>(arguments[0], parameter).Compile();
             }
-            
-            var concatInfo = SelectConcatMethod(arguments.Length);
 
-            var concat = Expression.Call(concatInfo, arguments);
-            var lambda = Expression.Lambda<Renderer>(concat, parameter);
+            MethodInfo concatInfo = SelectConcatMethod(arguments.Length);
+
+            MethodCallExpression concat = Expression.Call(concatInfo, arguments);
+            Expression<Renderer> lambda = Expression.Lambda<Renderer>(concat, parameter);
             return lambda.Compile();
         }
 
@@ -156,23 +156,20 @@ namespace Codestellation.Quarks.StringUtils
             {
                 throw new InvalidOperationException();
             }
-            
-            var concatMethods = typeof (string).GetMethods().Where(x => x.Name == "Concat");
-            
+
+            IEnumerable<MethodInfo> concatMethods = typeof(string).GetMethods().Where(x => x.Name == "Concat");
+
             if (parameterCount <= 4)
             {
                 return concatMethods
                     .Where(x => x.GetParameters().All(y => y.ParameterType == typeof(string)))
-                    .Single(x =>  x.GetParameters().Length == parameterCount);
+                    .Single(x => x.GetParameters().Length == parameterCount);
             }
 
-            return concatMethods.Single(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ParameterType == typeof (IEnumerable<string>));
+            return concatMethods.Single(x => x.GetParameters().Length == 1 && x.GetParameters()[0].ParameterType == typeof(IEnumerable<string>));
         }
 
 
-        public override string ToString()
-        {
-            return Body;
-        }
+        public override string ToString() => Body;
     }
 }

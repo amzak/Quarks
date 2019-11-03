@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32.SafeHandles;
+using Microsoft.Win32.SafeHandles;
 
 namespace Codestellation.Quarks.Native
 {
@@ -8,9 +8,6 @@ namespace Codestellation.Quarks.Native
         {
         }
 
-        protected override bool ReleaseHandle()
-        {
-            return false;
-        }
+        protected override bool ReleaseHandle() => false;
     }
 }

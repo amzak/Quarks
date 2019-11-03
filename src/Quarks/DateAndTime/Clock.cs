@@ -5,14 +5,11 @@ namespace Codestellation.Quarks.DateAndTime
     public static class Clock
     {
         private static Func<DateTime> _dateTimeGenerator = () => DateTime.UtcNow;
-        
-        public static DateTime UtcNow
-        {
-            get { return _dateTimeGenerator(); }
-        }
+
+        public static DateTime UtcNow => _dateTimeGenerator();
 
         /// <summary>
-        /// Test purpose only. 
+        /// Test purpose only.
         /// </summary>
         public static void FixClockAt(DateTime dateTime)
         {
@@ -20,16 +17,14 @@ namespace Codestellation.Quarks.DateAndTime
             {
                 throw new ArgumentException("DateTimeKind must be Local or Utc, but was Unspecified", "dateTime");
             }
+
             //It's here to make reading of test output more easier
             Console.WriteLine("Clock fixed at {0}", dateTime);
 
-            var fixedDateTime = dateTime.ToUniversalTime();
+            DateTime fixedDateTime = dateTime.ToUniversalTime();
             _dateTimeGenerator = () => fixedDateTime;
         }
 
-        public static void SetRealTime()
-        {
-            _dateTimeGenerator = () => DateTime.UtcNow;
-        }
+        public static void SetRealTime() => _dateTimeGenerator = () => DateTime.UtcNow;
     }
 }

@@ -5,37 +5,37 @@ namespace Codestellation.Quarks.Enumerations
 {
     public static class EnumUtil
     {
-        public static string AsString<TEnum>(this TEnum value) where TEnum : struct
+        public static string AsString<TEnum>(this TEnum value) where TEnum : struct, Enum
         {
             return EnumUtil<TEnum>.AsString(value);
         }
-        public static string AsString<TEnum>(this TEnum? value) where TEnum : struct
+        public static string AsString<TEnum>(this TEnum? value) where TEnum : struct, Enum
         {
             return EnumUtil<TEnum>.AsString(value);
         }
 
-        public static string AsUpperString<TEnum>(this TEnum value) where TEnum : struct
+        public static string AsUpperString<TEnum>(this TEnum value) where TEnum : struct, Enum
         {
             return EnumUtil<TEnum>.AsUpperString(value);
         }
 
-        public static string AsUpperString<TEnum>(this TEnum? value) where TEnum : struct
+        public static string AsUpperString<TEnum>(this TEnum? value) where TEnum : struct, Enum
         {
             return EnumUtil<TEnum>.AsUpperString(value);
         }
 
-        public static string AsLowerString<TEnum>(this TEnum value) where TEnum : struct
+        public static string AsLowerString<TEnum>(this TEnum value) where TEnum : struct, Enum
         {
             return EnumUtil<TEnum>.AsLowerString(value);
         }
 
-        public static string AsLowerString<TEnum>(this TEnum? value) where TEnum : struct
+        public static string AsLowerString<TEnum>(this TEnum? value) where TEnum : struct, Enum
         {
             return EnumUtil<TEnum>.AsLowerString(value);
         }
     }
 
-    public static class EnumUtil<TEnum> where TEnum : struct
+    public static class EnumUtil<TEnum> where TEnum : struct, Enum
     {
         private static readonly EnumIndexer<TEnum, string> ToStringCache;
         private static readonly EnumIndexer<TEnum, string> ToUpperStringCache;

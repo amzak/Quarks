@@ -12,8 +12,8 @@ namespace Codestellation.Quarks.Reflection
         {
             Assembly entryAssembly = Assembly.GetEntryAssembly();
 
-            var asmInfoVersion = entryAssembly.GetAttribute<AssemblyInformationalVersionAttribute>();
-            var asmVersion = entryAssembly.GetAttribute<AssemblyVersionAttribute>();
+            var asmInfoVersion = entryAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+            var asmVersion = entryAssembly.GetCustomAttribute<AssemblyVersionAttribute>();
 
             InformationalVersion = asmInfoVersion == null ? "unknown" : asmInfoVersion.InformationalVersion;
             Version = asmVersion == null ? "unknown" : asmVersion.Version;

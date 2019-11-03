@@ -5,7 +5,10 @@ namespace Codestellation.Quarks.Collections
 {
     public static class AlgorithmExtensions
     {
-        static readonly Random Random = new Random();
+        [ThreadStatic]
+        private static Random _random;
+
+        private static Random Random => _random ??= new Random();
 
         /// <summary>
         /// Fisher–Yates shuffle
@@ -13,12 +16,12 @@ namespace Codestellation.Quarks.Collections
         /// </summary>
         public static IList<T> Shuffle<T>(this IList<T> sequence, Random random = null)
         {
-            var acutalRandom = random ?? Random;
+            Random actualRandom = random ?? Random;
 
             int length = sequence.Count;
             for (int i = length - 1; i > 0; i--)
             {
-                int randomIndex = acutalRandom.Next(i + 1);
+                int randomIndex = actualRandom.Next(i + 1);
                 T item = sequence[randomIndex];
                 sequence[randomIndex] = sequence[i];
                 sequence[i] = item;
@@ -26,6 +29,5 @@ namespace Codestellation.Quarks.Collections
 
             return sequence;
         }
-
     }
 }

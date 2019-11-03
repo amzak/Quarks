@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -18,15 +19,15 @@ namespace Codestellation.Quarks.Enumerations
                 throw new InvalidOperationException("Type parameter TEnum must be an Enum");
             }
 
-            var members = Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
-            var maxValue = members.Select(x => Convert.ToInt32(x)).Max();
-            var minValue = members.Select(x => Convert.ToInt32(x)).Min();
+            IEnumerable<TEnum> members = Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
+            int maxValue = members.Select(x => Convert.ToInt32(x)).Max();
+            int minValue = members.Select(x => Convert.ToInt32(x)).Min();
 
             Offset = -minValue;
             ArraySize = maxValue - minValue + 1;
 
-            var enumValue = Expression.Parameter(typeof(TEnum));
-            var castToInt = Expression.Convert(enumValue, typeof(int));
+            ParameterExpression enumValue = Expression.Parameter(typeof(TEnum));
+            UnaryExpression castToInt = Expression.Convert(enumValue, typeof(int));
             ConvertToInt = Expression.Lambda<Func<TEnum, int>>(castToInt, enumValue).Compile();
         }
 
@@ -35,10 +36,7 @@ namespace Codestellation.Quarks.Enumerations
             InitializeArray();
         }
 
-        private void InitializeArray()
-        {
-            _valueArray = new TValue[ArraySize];
-        }
+        private void InitializeArray() => _valueArray = new TValue[ArraySize];
 
         public TValue this[TEnum index]
         {
@@ -54,9 +52,6 @@ namespace Codestellation.Quarks.Enumerations
             }
         }
 
-        public TValue[] GetValues()
-        {
-            return _valueArray;
-        }
+        public TValue[] GetValues() => _valueArray;
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using Codestellation.Quarks.DateAndTime;
 
@@ -22,10 +22,7 @@ namespace Codestellation.Quarks.Threading
             _internalTimer = new Timer(ignore => OnInternalTimerFired(), this, Timeout.Infinite, Timeout.Infinite);
         }
 
-        public void FireAt(DateTime fireAt)
-        {
-            SetupInternal(fireAt, null);
-        }
+        public void FireAt(DateTime fireAt) => SetupInternal(fireAt, null);
 
         public void FireAndRepeat(DateTime fireAt, TimeSpan interval)
         {
@@ -33,6 +30,7 @@ namespace Codestellation.Quarks.Threading
             {
                 throw new ArgumentOutOfRangeException("interval", interval, "Value should be greater than zero.");
             }
+
             SetupInternal(fireAt, interval);
         }
 
@@ -51,9 +49,9 @@ namespace Codestellation.Quarks.Threading
 
         private void SetupTimer(bool isTimerCallback)
         {
-            var fireAfter = _fireAt - Clock.UtcNow;
+            TimeSpan fireAfter = _fireAt - Clock.UtcNow;
 
-            if (fireAfter <= TimeSpan.Zero) 
+            if (fireAfter <= TimeSpan.Zero)
             {
                 if (isTimerCallback)
                 {
@@ -100,9 +98,6 @@ namespace Codestellation.Quarks.Threading
             }
         }
 
-        public void Dispose()
-        {
-            _internalTimer.Dispose();
-        }
+        public void Dispose() => _internalTimer.Dispose();
     }
 }

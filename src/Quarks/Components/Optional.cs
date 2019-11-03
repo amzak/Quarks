@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Codestellation.Quarks.Components
 {
@@ -18,6 +19,7 @@ namespace Codestellation.Quarks.Components
                 {
                     throw new InvalidOperationException("Value is empty.");
                 }
+
                 return _option;
             }
             set
@@ -27,84 +29,78 @@ namespace Codestellation.Quarks.Components
             }
         }
 
-        public static explicit operator Optional<TValue>(TValue value)
-        {
-            return new Optional<TValue> {Value = value};
-        }
+        public static explicit operator Optional<TValue>(TValue value) => new Optional<TValue> { Value = value };
     }
 
     public static class Optional
     {
-        private static readonly ConcurrentDictionary<Tuple<Type, string>, Func<object, bool>> ReadersCache = 
-            new ConcurrentDictionary<Tuple<Type, string>, Func<object, bool>>(); 
-        private static readonly ConcurrentDictionary<Type,  Tuple<Func<object, object>, Func<object, object>>>  ValueReadersCache = 
+        private static readonly ConcurrentDictionary<Tuple<Type, string>, Func<object, bool>> ReadersCache =
+            new ConcurrentDictionary<Tuple<Type, string>, Func<object, bool>>();
+
+        private static readonly ConcurrentDictionary<Type, Tuple<Func<object, object>, Func<object, object>>> ValueReadersCache =
             new ConcurrentDictionary<Type, Tuple<Func<object, object>, Func<object, object>>>();
 
-        public static Optional<TValue> ToOptional<TValue>(this TValue self)
-        {
-            return new Optional<TValue> { Value = self };
-        }
+        public static Optional<TValue> ToOptional<TValue>(this TValue self) => new Optional<TValue> { Value = self };
 
         public static bool ReadHasValue(object value, string propertyName)
         {
-            var key = Tuple.Create(value.GetType(), propertyName);
-            var reader = ReadersCache.GetOrAdd(key, BuildReader);
+            Tuple<Type, string> key = Tuple.Create(value.GetType(), propertyName);
+            Func<object, bool> reader = ReadersCache.GetOrAdd(key, BuildReader);
             return reader(value);
         }
 
         public static object GetValue(object value)
         {
-            var reader = ValueReadersCache.GetOrAdd(value.GetType(), BuildReaderWriter);
+            Tuple<Func<object, object>, Func<object, object>> reader = ValueReadersCache.GetOrAdd(value.GetType(), BuildReaderWriter);
             return reader.Item1(value);
         }
 
         public static object From(Type closedOptionalType, object value)
         {
-            var writer = ValueReadersCache.GetOrAdd(closedOptionalType, BuildReaderWriter).Item2;
+            Func<object, object> writer = ValueReadersCache.GetOrAdd(closedOptionalType, BuildReaderWriter).Item2;
             return writer(value);
         }
 
         private static Tuple<Func<object, object>, Func<object, object>> BuildReaderWriter(Type arg)
         {
-            var reader = BuildValueReader(arg);
-            var writer = BuildValueWriter(arg);
+            Func<object, object> reader = BuildValueReader(arg);
+            Func<object, object> writer = BuildValueWriter(arg);
             return Tuple.Create(reader, writer);
         }
 
         private static Func<object, object> BuildValueWriter(Type closedOptionalType)
         {
-            
-            var valueType = closedOptionalType.GetGenericArguments()[0];
-            var valueParameter = Expression.Parameter(typeof(object));
-            var castedValue = Expression.Convert(valueParameter, valueType);
+            Type valueType = closedOptionalType.GetGenericArguments()[0];
+            ParameterExpression valueParameter = Expression.Parameter(typeof(object));
+            UnaryExpression castedValue = Expression.Convert(valueParameter, valueType);
 
-            var method = closedOptionalType.GetMethod("op_Explicit", new[] { valueType });
+            MethodInfo method = closedOptionalType.GetMethod("op_Explicit", new[] { valueType });
 
-            var optional = Expression.Call(method, castedValue);
-            var optionalAsObject = Expression.Convert(optional, typeof (object));
+            MethodCallExpression optional = Expression.Call(method, castedValue);
+            UnaryExpression optionalAsObject = Expression.Convert(optional, typeof(object));
 
             return Expression.Lambda<Func<object, object>>(optionalAsObject, valueParameter).Compile();
         }
 
         private static Func<object, object> BuildValueReader(Type arg)
         {
-            var valueParameter = Expression.Parameter(typeof (object));
-            var castedValue = Expression.Convert(valueParameter, arg);
-            var valueProperty = Expression.PropertyOrField(castedValue, "Value");
-            var valueAsObject = Expression.Convert(valueProperty, typeof (object));
+            ParameterExpression valueParameter = Expression.Parameter(typeof(object));
+            UnaryExpression castedValue = Expression.Convert(valueParameter, arg);
+            MemberExpression valueProperty = Expression.PropertyOrField(castedValue, "Value");
+            UnaryExpression valueAsObject = Expression.Convert(valueProperty, typeof(object));
 
-            var buildValueReader = Expression.Lambda<Func<object, object>>(valueAsObject, valueParameter).Compile();
+            Func<object, object> buildValueReader = Expression.Lambda<Func<object, object>>(valueAsObject, valueParameter).Compile();
             return buildValueReader;
         }
 
         private static Func<object, bool> BuildReader(Tuple<Type, string> arg)
         {
-            var valueParameter = Expression.Parameter(typeof (object));
-            var castedValue = Expression.Convert(valueParameter, arg.Item1);
+            ParameterExpression valueParameter = Expression.Parameter(typeof(object));
+            UnaryExpression castedValue = Expression.Convert(valueParameter, arg.Item1);
 
-            var optionalPropertyValue = Expression.PropertyOrField(castedValue, arg.Item2);
+            MemberExpression optionalPropertyValue = Expression.PropertyOrField(castedValue, arg.Item2);
 
-            var hasValue = Expression.PropertyOrField(optionalPropertyValue, "HasValue");
+            MemberExpression hasValue = Expression.PropertyOrField(optionalPropertyValue, "HasValue");
 
             return Expression.Lambda<Func<object, bool>>(hasValue, valueParameter).Compile();
         }

@@ -6,6 +6,12 @@ namespace Codestellation.Quarks.Collections
 {
     public static class ListExtensions
     {
+        /// <summary>
+        /// Allocation free partition of the list
+        /// </summary>
+        public static BatchEnumerable<T> Partition<T>(this IList<T> self, int batchSize)
+            => new BatchEnumerable<T>(self, batchSize);
+
         public struct SliceEnumerable<T> : IEnumerable<T>
         {
             private readonly IList<T> _list;
@@ -19,20 +25,11 @@ namespace Codestellation.Quarks.Collections
                 _to = to;
             }
 
-            public SliceEnumerator<T> GetEnumerator()
-            {
-                return new SliceEnumerator<T>(_list, _from, _to);
-            }
+            public SliceEnumerator<T> GetEnumerator() => new SliceEnumerator<T>(_list, _from, _to);
 
-            IEnumerator<T> IEnumerable<T>.GetEnumerator()
-            {
-                return new SliceEnumerator<T>(_list, _from, _to);
-            }
+            IEnumerator<T> IEnumerable<T>.GetEnumerator() => new SliceEnumerator<T>(_list, _from, _to);
 
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                return new SliceEnumerator<T>(_list, _from, _to);
-            }
+            IEnumerator IEnumerable.GetEnumerator() => new SliceEnumerator<T>(_list, _from, _to);
         }
 
         [Serializable]
@@ -42,11 +39,10 @@ namespace Codestellation.Quarks.Collections
             private readonly int _from;
             private readonly int _to;
             private int _index;
-            private T _current;
 
-            public T Current => _current;
+            public T Current { get; private set; }
 
-            object IEnumerator.Current => _current;
+            object IEnumerator.Current => Current;
 
             public SliceEnumerator(IList<T> list, int from, int to)
             {
@@ -54,7 +50,7 @@ namespace Codestellation.Quarks.Collections
                 _from = from;
                 _to = to;
                 _index = from;
-                _current = default(T);
+                Current = default;
             }
 
             public bool MoveNext()
@@ -63,10 +59,11 @@ namespace Codestellation.Quarks.Collections
                 if (_index >= _to)
                 {
                     _index = _to + 1;
-                    _current = default(T);
+                    Current = default;
                     return false;
                 }
-                _current = list[_index];
+
+                Current = list[_index];
                 _index += 1;
                 return true;
             }
@@ -74,7 +71,7 @@ namespace Codestellation.Quarks.Collections
             void IEnumerator.Reset()
             {
                 _index = _from;
-                _current = default(T);
+                Current = default;
             }
 
             public void Dispose()
@@ -93,20 +90,11 @@ namespace Codestellation.Quarks.Collections
                 _batchSize = batchSize;
             }
 
-            public BatchEnumerator<T> GetEnumerator()
-            {
-                return new BatchEnumerator<T>(_list, _batchSize);
-            }
+            public BatchEnumerator<T> GetEnumerator() => new BatchEnumerator<T>(_list, _batchSize);
 
-            IEnumerator<SliceEnumerable<T>> IEnumerable<SliceEnumerable<T>>.GetEnumerator()
-            {
-                return GetEnumerator();
-            }
+            IEnumerator<SliceEnumerable<T>> IEnumerable<SliceEnumerable<T>>.GetEnumerator() => GetEnumerator();
 
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                return GetEnumerator();
-            }
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
 
         [Serializable]
@@ -115,15 +103,14 @@ namespace Codestellation.Quarks.Collections
             private readonly IList<T> _list;
             private readonly int _batchSize;
             private readonly int _totalBatches;
-            private SliceEnumerable<T> _current;
             private int _index;
 
             public BatchEnumerator(IList<T> list, int batchSize)
             {
                 _list = list;
                 _batchSize = batchSize;
-                _current = new SliceEnumerable<T>();
-                _totalBatches = (list.Count / batchSize) + (list.Count % batchSize == 0 ? 0 : 1);
+                Current = new SliceEnumerable<T>();
+                _totalBatches = list.Count / batchSize + (list.Count % batchSize == 0 ? 0 : 1);
                 _index = 0;
             }
 
@@ -138,12 +125,13 @@ namespace Codestellation.Quarks.Collections
                 if (_index >= _totalBatches)
                 {
                     _index = _totalBatches + 1;
-                    _current = default(SliceEnumerable<T>);
+                    Current = default;
                     return false;
                 }
-                var first = _index * _batchSize;
-                var last = Math.Min(list.Count, first + _batchSize);
-                _current = new SliceEnumerable<T>(list, first, last);
+
+                int first = _index * _batchSize;
+                int last = Math.Min(list.Count, first + _batchSize);
+                Current = new SliceEnumerable<T>(list, first, last);
                 _index += 1;
                 return true;
             }
@@ -151,17 +139,12 @@ namespace Codestellation.Quarks.Collections
             public void Reset()
             {
                 _index = 0;
-                _current = default(SliceEnumerable<T>);
+                Current = default;
             }
 
-            public SliceEnumerable<T> Current => _current;
+            public SliceEnumerable<T> Current { get; private set; }
 
-            object IEnumerator.Current => _current;
-        }
-
-        public static BatchEnumerable<T> Partition<T>(this List<T> self, int batchSize)
-        {
-            return new BatchEnumerable<T>(self, batchSize);
+            object IEnumerator.Current => Current;
         }
     }
 }
