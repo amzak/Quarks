@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 
 namespace Codestellation.Quarks.Testing
 {
     public static partial class Some
     {
-        private static readonly Random Random;
+        public static readonly Random Random;
 
         static Some()
         {
