@@ -6,7 +6,17 @@ namespace Codestellation.Quarks.DateAndTime
     {
         private static Func<DateTime> _dateTimeGenerator = () => DateTime.UtcNow;
 
-        public static DateTime UtcNow => _dateTimeGenerator();
+        private static Func<DateTime, DateTime> _precision = DateTimeExtensions.DiscardMicroseconds;
+
+        public static DateTime UtcNow
+        {
+            get
+            {
+                DateTime now = _dateTimeGenerator();
+                now = _precision(now);
+                return now;
+            }
+        }
 
         /// <summary>
         /// Test purpose only.
