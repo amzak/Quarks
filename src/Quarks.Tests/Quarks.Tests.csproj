@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.2;net471</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.2;net471;net6.0</TargetFrameworks>
     <AssemblyName>Codestellation.Quarks.Tests</AssemblyName>
     <RootNamespace>Codestellation.Quarks.Tests</RootNamespace>
     <IsPackable>false</IsPackable>
